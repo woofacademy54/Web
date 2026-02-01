@@ -41,30 +41,36 @@
     </header>
 
     <main>
-        <!-- FILTRES -->
-        <section class="section" style="padding-top: var(--space-xl);">
-            <div class="container">
-                <!-- FILTRES -->
-                <div class="flex justify-between items-center flex-wrap gap-lg mb-xl">
-                    <div class="tabs" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">
-                        <button class="tab active" data-filter="all">Tout</button>
-                        <button class="tab" data-filter="education">Éducation</button>
-                        <button class="tab" data-filter="accessoires">Accessoires</button>
-                        <button class="tab" data-filter="alimentation">Alimentation</button>
-                        <button class="tab" data-filter="jouets">Jouets</button>
-                    </div>
-                    
-                    <div class="flex gap-md">
-                        <select class="form-select" style="width: auto;" id="sortSelect">
-                            <option value="popular">Popularité</option>
-                            <option value="price-asc">Prix croissant</option>
-                            <option value="price-desc">Prix décroissant</option>
-                            <option value="newest">Nouveautés</option>
-                        </select>
-                    </div>
+	
+	<!-- FILTRES -->
+<section class="section" style="background: var(--bg-secondary); padding-top: 0;">
+    <div class="container">
+        <div class="flex justify-between items-center mb-md">
+            <h2 class="section-title">Nos Produits</h2>
+            <div class="flex items-center gap-md">
+                <div class="flex gap-sm items-center">
+                    <label for="sortSelect" class="text-muted"><i class="fas fa-sort"></i> Trier par :</label>
+                    <select id="sortSelect" class="select">
+                        <option value="default">Par défaut</option>
+                        <option value="price-asc"><i class="fas fa-sort-amount-down-alt"></i> Prix croissant</option>
+                        <option value="price-desc"><i class="fas fa-sort-amount-up-alt"></i> Prix décroissant</option>
+                    </select>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <div class="filters">
+            <div class="tabs">
+                <button class="tab active" data-filter="all"><i class="fas fa-th"></i> Tous</button>
+                <button class="tab" data-filter="education"><i class="fas fa-book"></i> Éducation</button>
+                <button class="tab" data-filter="accessoires"><i class="fas fa-tag"></i> Accessoires</button>
+                <button class="tab" data-filter="jouets"><i class="fas fa-gamepad"></i> Jouets</button>
+                <button class="tab" data-filter="alimentation"><i class="fas fa-utensils"></i> Alimentation</button>
+            </div>
+        </div>
+    </div>
+</section>
+
 
         <!-- PRODUITS -->
         <section class="section" style="background: var(--bg-secondary); padding-top: 0;">
