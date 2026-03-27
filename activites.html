@@ -51,7 +51,8 @@
         .accord-item.mag    { --acc-color: var(--neon-magenta); --acc-soft: var(--neon-magenta-soft); }
         .accord-item.orange { --acc-color: var(--neon-orange);  --acc-soft: rgba(249,115,22,.12); }
 
-        .accord-item.open { border-color: var(--acc-color); }
+        .accord-item.open,
+        .accord-item:hover { border-color: var(--acc-color); }
 
         /* ── HEADER CLIQUABLE ─────────────────────── */
         .accord-head {
@@ -75,6 +76,7 @@
             transition: opacity .3s;
         }
         .accord-item.open .accord-head::before,
+        .accord-item:hover .accord-head::before,
         .accord-head:hover::before { opacity: 1; }
 
         .accord-icon {
@@ -121,7 +123,7 @@
             z-index: 1;
         }
         .accord-item.open .accord-thumb,
-        .accord-head:hover .accord-thumb { opacity: 1; }
+        .accord-item:hover .accord-thumb { opacity: 1; }
 
         .accord-chevron {
             width: 28px;
@@ -138,7 +140,8 @@
             z-index: 1;
             flex-shrink: 0;
         }
-        .accord-item.open .accord-chevron {
+        .accord-item.open .accord-chevron,
+        .accord-item:hover .accord-chevron {
             transform: rotate(180deg);
             background: var(--acc-soft);
             color: var(--acc-color);
@@ -151,7 +154,8 @@
             transition: max-height .45s cubic-bezier(.4,0,.2,1);
             background: var(--bg-primary);
         }
-        .accord-item.open .accord-body { max-height: 800px; }
+        .accord-item.open .accord-body,
+        .accord-item:hover .accord-body { max-height: 800px; }
 
         .accord-inner {
             padding: var(--space-lg);
@@ -174,13 +178,17 @@
 
         .activ-card__img {
             width: 100%;
-            height: 130px;
-            object-fit: cover;
+            height: 140px;
+            object-fit: contain;
+            object-position: center;
             display: block;
+            background: var(--bg-tertiary);
+            padding: 8px;
+            box-sizing: border-box;
         }
         .activ-card__img-placeholder {
             width: 100%;
-            height: 130px;
+            height: 140px;
             background: var(--acc-soft);
             display: flex;
             align-items: center;
@@ -346,7 +354,7 @@
         <!-- ═══════════════════════════════════════════
              ACCORDÉON 1 — DOG & PLAY
         ═══════════════════════════════════════════ -->
-        <div class="accord-item cyan open" id="acc-dog">
+        <div class="accord-item cyan" id="acc-dog">
             <div class="accord-head" onclick="toggleAccord('acc-dog')">
                 <div class="accord-icon"><i class="fas fa-paw"></i></div>
                 <div class="accord-head-text">
@@ -732,22 +740,15 @@
 
     <script src="js/woof-header.js"></script>
     <script>
+        // Sur mobile (pas de hover), le clic bascule l'état open
         function toggleAccord(id) {
+            const isTouchDevice = window.matchMedia('(hover: none)').matches;
+            if (!isTouchDevice) return; // Sur desktop, le hover CSS gère tout
+
             const item = document.getElementById(id);
-            const body = item.querySelector('.accord-body');
             const isOpen = item.classList.contains('open');
-
-            // Ferme tous
-            document.querySelectorAll('.accord-item').forEach(el => {
-                el.classList.remove('open');
-            });
-
-            // Ouvre si était fermé
-            if (!isOpen) {
-                item.classList.add('open');
-                // Scroll smooth vers l'item
-                setTimeout(() => item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
-            }
+            document.querySelectorAll('.accord-item').forEach(el => el.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
         }
     </script>
 </body>
