@@ -4,20 +4,302 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activités - Woof Academy Network</title>
-    <meta name="description" content="Découvrez nos formules d'abonnement : Découverte, Premium et VIP. Profitez de tarifs préférentiels et d'avantages exclusifs.">
+    <meta name="description" content="Découvrez toutes les activités Woof Academy — Dog & Play, Outdoor Fitness, Bien-être, Installations.">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/woof-header.css">
-    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Rajdhani:wght@700&family=Lexend:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Play:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        /* ══════════════════════════════════════════════
+           PAGE ACTIVITÉS — ACCORDÉON PREMIUM
+        ══════════════════════════════════════════════ */
+
+        .activ-wrap {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        /* ── PAGE TITLE ───────────────────────────── */
+        .page-hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            margin-bottom: var(--space-sm);
+        }
+        .page-hero h1 {
+            font-family: 'Play', sans-serif;
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            margin: 0;
+        }
+        .page-hero p { color: var(--text-muted); font-size: 0.88rem; margin: 4px 0 0; }
+
+        /* ── ACCORDÉON ITEM ───────────────────────── */
+        .accord-item {
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: border-color .25s;
+        }
+        .accord-item.cyan   { --acc-color: var(--neon-cyan);    --acc-soft: var(--neon-cyan-soft); }
+        .accord-item.green  { --acc-color: var(--neon-green);   --acc-soft: var(--neon-green-soft); }
+        .accord-item.mag    { --acc-color: var(--neon-magenta); --acc-soft: var(--neon-magenta-soft); }
+        .accord-item.orange { --acc-color: var(--neon-orange);  --acc-soft: rgba(249,115,22,.12); }
+
+        .accord-item.open { border-color: var(--acc-color); }
+
+        /* ── HEADER CLIQUABLE ─────────────────────── */
+        .accord-head {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md) var(--space-lg);
+            background: var(--bg-secondary);
+            cursor: pointer;
+            user-select: none;
+            transition: background .2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .accord-head::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, var(--acc-soft) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity .3s;
+        }
+        .accord-item.open .accord-head::before,
+        .accord-head:hover::before { opacity: 1; }
+
+        .accord-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: var(--acc-soft);
+            color: var(--acc-color);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .accord-head-text {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        .accord-head-text h2 {
+            font-family: 'Play', sans-serif;
+            font-size: 1.15rem;
+            margin: 0;
+            color: var(--text-primary);
+        }
+        .accord-head-text h2 span { color: var(--acc-color); }
+        .accord-head-text p {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin: 2px 0 0;
+        }
+
+        .accord-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            opacity: .65;
+            transition: opacity .2s;
+            position: relative;
+            z-index: 1;
+        }
+        .accord-item.open .accord-thumb,
+        .accord-head:hover .accord-thumb { opacity: 1; }
+
+        .accord-chevron {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            transition: transform .3s, background .2s, color .2s;
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+        .accord-item.open .accord-chevron {
+            transform: rotate(180deg);
+            background: var(--acc-soft);
+            color: var(--acc-color);
+        }
+
+        /* ── CORPS DÉPLIABLE ──────────────────────── */
+        .accord-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .45s cubic-bezier(.4,0,.2,1);
+            background: var(--bg-primary);
+        }
+        .accord-item.open .accord-body { max-height: 800px; }
+
+        .accord-inner {
+            padding: var(--space-lg);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        /* ── CARTE ACTIVITÉ ───────────────────────── */
+        .activ-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform .2s, border-color .2s;
+        }
+        .activ-card:hover { transform: translateY(-3px); border-color: var(--acc-color); }
+
+        .activ-card__img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            display: block;
+        }
+        .activ-card__img-placeholder {
+            width: 100%;
+            height: 130px;
+            background: var(--acc-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .activ-card__body {
+            padding: var(--space-md);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+        .activ-card__badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--acc-color);
+            margin-bottom: 2px;
+        }
+        .activ-card__title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        .activ-card__desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .activ-card__features {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-xs) 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .activ-card__features li {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .activ-card__features li::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--acc-color);
+            flex-shrink: 0;
+        }
+
+        .activ-card__footer {
+            padding: var(--space-sm) var(--space-md);
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-sm);
+        }
+        .activ-card__price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--acc-color);
+        }
+        .activ-card__price span {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        /* ── CTA BAND ─────────────────────────────── */
+        .cta-band {
+            background: linear-gradient(135deg, rgba(217,70,239,.08) 0%, rgba(6,182,212,.08) 100%);
+            border: 1px solid rgba(217,70,239,.25);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-xl) var(--space-2xl);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+            margin-top: var(--space-sm);
+        }
+        .cta-band h3 { font-size: 1.3rem; margin: 0; }
+        .cta-band p  { color: var(--text-muted); margin: 0; font-size: 0.88rem; }
+        .cta-band .cta-btns { display: flex; gap: var(--space-md); flex-wrap: wrap; justify-content: center; }
+
+        /* ── RESPONSIVE ───────────────────────────── */
+        @media (max-width: 768px) {
+            .activ-wrap { padding: var(--space-md); }
+            .accord-inner { grid-template-columns: 1fr; }
+            .accord-thumb { display: none; }
+            .accord-head { padding: var(--space-md); }
+            .cta-band { padding: var(--space-lg); }
+        }
+        @media (max-width: 500px) {
+            .accord-inner { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <!-- HEADER UNIFIÉ -->
+
+    <!-- HEADER -->
     <header class="woof-header">
         <div class="woof-header__content">
             <a href="index.html" class="woof-logo">
-                <img src="galerie/logohq.png" alt="Woof Academy" class="woof-logo__img"></a>
-
+                <img src="galerie/logohq.png" alt="Woof Academy" class="woof-logo__img">
+            </a>
             <nav class="woof-nav" id="woofNav">
                 <a href="index.html" class="woof-nav__item"><i class="fas fa-home"></i><span class="nav-text">Accueil</span></a>
                 <a href="concept.html" class="woof-nav__item"><i class="fas fa-lightbulb"></i><span class="nav-text">Concept</span></a>
@@ -34,26 +316,11 @@
                 <a href="shop.html" class="woof-nav__item"><i class="fas fa-store"></i><span class="nav-text">Boutique</span></a>
                 <a href="nous-contacter.html" class="woof-nav__item"><i class="fas fa-envelope"></i><span class="nav-text">Contact</span></a>
             </nav>
-
             <div class="woof-actions">
                 <div class="woof-cart-dog" id="woofCartDog">
                     <a href="panier.html" class="woof-cart-dog__link" title="Mon Panier">
-                        <svg class="woof-dog" viewBox="0 0 48 48" fill="none">
-                            <ellipse cx="24" cy="28" rx="14" ry="10" fill="currentColor" opacity="0.9"/>
-                            <circle cx="24" cy="16" r="10" fill="currentColor"/>
-                            <ellipse cx="16" cy="10" rx="4" ry="6" fill="currentColor" transform="rotate(-20 16 10)"/>
-                            <ellipse cx="32" cy="10" rx="4" ry="6" fill="currentColor" transform="rotate(20 32 10)"/>
-                            <circle cx="20" cy="14" r="2" fill="#070a0f"/>
-                            <circle cx="28" cy="14" r="2" fill="#070a0f"/>
-                            <ellipse cx="24" cy="20" rx="4" ry="3" fill="#1a1a2e"/>
-                            <ellipse cx="24" cy="18" rx="1.5" ry="1" fill="#333"/>
-                            <ellipse cx="18" cy="36" rx="3" ry="5" fill="currentColor"/>
-                            <ellipse cx="30" cy="36" rx="3" ry="5" fill="currentColor"/>
-                            <path d="M38 26 Q44 20 42 28 Q40 32 38 28" fill="currentColor"/>
-                        </svg>
-                        <svg class="woof-bone" viewBox="0 0 24 12" fill="currentColor">
-                            <path d="M4 6c-1.5 0-2.5-1-2.5-2.5S2.5 1 4 1s2.5 1 2.5 2.5c0 .5-.1 1-.3 1.3h11.6c-.2-.3-.3-.8-.3-1.3C17.5 2 18.5 1 20 1s2.5 1 2.5 2.5S21.5 6 20 6s-2.5 1-2.5 2.5S18.5 11 20 11s2.5-1 2.5-2.5c0-.5-.1-1-.3-1.3H10.6c.2.3.3.8.3 1.3C10.5 10 9.5 11 8 11s-2.5-1-2.5-2.5S6.5 6 8 6c.5 0 1 .1 1.3.3V5.7C9 5.9 8.5 6 8 6H4z"/>
-                        </svg>
+                        <svg class="woof-dog" viewBox="0 0 48 48" fill="none"><ellipse cx="24" cy="28" rx="14" ry="10" fill="currentColor" opacity="0.9"/><circle cx="24" cy="16" r="10" fill="currentColor"/><ellipse cx="16" cy="10" rx="4" ry="6" fill="currentColor" transform="rotate(-20 16 10)"/><ellipse cx="32" cy="10" rx="4" ry="6" fill="currentColor" transform="rotate(20 32 10)"/><circle cx="20" cy="14" r="2" fill="#070a0f"/><circle cx="28" cy="14" r="2" fill="#070a0f"/><ellipse cx="24" cy="20" rx="4" ry="3" fill="#1a1a2e"/><ellipse cx="24" cy="18" rx="1.5" ry="1" fill="#333"/><ellipse cx="18" cy="36" rx="3" ry="5" fill="currentColor"/><ellipse cx="30" cy="36" rx="3" ry="5" fill="currentColor"/><path d="M38 26 Q44 20 42 28 Q40 32 38 28" fill="currentColor"/></svg>
+                        <svg class="woof-bone" viewBox="0 0 24 12" fill="currentColor"><path d="M4 6c-1.5 0-2.5-1-2.5-2.5S2.5 1 4 1s2.5 1 2.5 2.5c0 .5-.1 1-.3 1.3h11.6c-.2-.3-.3-.8-.3-1.3C17.5 2 18.5 1 20 1s2.5 1 2.5 2.5S21.5 6 20 6s-2.5 1-2.5 2.5S18.5 11 20 11s2.5-1 2.5-2.5c0-.5-.1-1-.3-1.3H10.6c.2.3.3.8.3 1.3C10.5 10 9.5 11 8 11s-2.5-1-2.5-2.5S6.5 6 8 6c.5 0 1 .1 1.3.3V5.7C9 5.9 8.5 6 8 6H4z"/></svg>
                         <span class="woof-cart-count" id="woofCartCount">0</span>
                     </a>
                 </div>
@@ -63,403 +330,347 @@
         </div>
     </header>
 
-<main>   
-    <!-- PARC LA BASE -->
-		<div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-			<section class="section section-repliable" id="education" style="background: var(--bg-secondary); width: 1200px; max-width: 1200px;">
-                <div class="section-toggle" onclick="toggleSection('education')">
-                    <i class="fas fa-chevron-down"></i>
-                    <div class="card-icon card-icon-cyan">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div>
-                        <h2 class="mb-0" style="padding-top: 10px;">Dog &<span class="text-cyan">  Play</span></h2>
-                        <p class="text-muted mb-0">Tout l'univers du chien réuni en un seul lieu </p>
-                    </div>
-					<center>
-                      <img src="galerie/ami.png" alt="Woof Academy" class="woof-logo__img">  
-                    </center>					
+    <main>
+    <div class="activ-wrap">
+
+        <!-- TITRE -->
+        <div class="page-hero">
+            <div>
+                <span class="badge badge-cyan" style="margin-bottom:8px;"><i class="fas fa-running"></i> Activités</span>
+                <h1>Nos <span class="text-cyan">Activités</span></h1>
+                <p>Cliquez sur une catégorie pour découvrir les détails.</p>
+            </div>
+            <a href="planning-reservation.html" class="btn btn-primary"><i class="fas fa-calendar"></i> Réserver</a>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             ACCORDÉON 1 — DOG & PLAY
+        ═══════════════════════════════════════════ -->
+        <div class="accord-item cyan open" id="acc-dog">
+            <div class="accord-head" onclick="toggleAccord('acc-dog')">
+                <div class="accord-icon"><i class="fas fa-paw"></i></div>
+                <div class="accord-head-text">
+                    <h2>Dog &amp; <span>Play</span></h2>
+                    <p>Tout l'univers du chien réuni en un seul lieu</p>
                 </div>
-                <div class="section-content">
-                    <div class="container">
-					
-                        <!-- ACTIVITÉS CHIENS -->
-						
-                        <div class="grid grid-cols-3 md-grid-cols-1">
-						
-                            <!-- Carte 1 -->
-                            <div class="activity-card-container-cyan">
-                                <div class="activity-card-header" data-category="education">
-                                    <span class="badge badge-cyan mb-md">Chiots/Jeunes chiens</span>
-                                    <h4>Éspace Séparé</h4>
-                                    <p>Un espace dédié, séparé par un simple grillage, pour rester en contact visuel avec les autres chiens tout en gardant un cadre plus maîtrisé. Idéal pour sécuriser, rassurer, et favoriser une socialisation progressive avec les plus grands, sans mise en difficulté et travailler les fondamentaux (calme, focus, rappel) dans une ambiance ludique, conviviale et 100% canine.</li></p>
-                                </div>
-                                <div class="activity-card-content">
-                                    <ul class="pricing-features" style="margin: var(--space-md) 0;">
-                                        <li>Jeux & Jouets</li>
-                                        <li>Espace sécurisé</li>
-                                        <li>Conseils pratiques</li>
-                                        <li>Environnement adapté</li>
-                                    <!-- </ul>s -->
-                                    <center>
-                                    <img src="galerie/barriere.png" alt="Image" style="width:200px;height:200px;">
-                                    </center>
-                                </div>
-                            </div>
-							
-							<!-- Carte 2 -->
-							<div class="activity-card-container-cyan">
-								<div class="activity-card-header" data-category="education">
-									<span class="badge badge-cyan mb-md">Coins sport canin</span>
-									<h4>Parcours Agility</h4>
-									<p>Un espace de jeux et de sport pensé pour que votre chien puisse se défouler vraiment, sans gêner les autres et sans que vous ayez besoin d’enchaîner les kilomètres.Idéal quand vous cherchez une dépense efficace, encadrée et rapide : on stimule à la fois l’énergie, la coordination… et on rentre avec un chien mieux “vidé”, sans y passer la journée.</li>
-							</div>
-							
-                        <div class="activity-card-content">
-                            <ul class="pricing-features">
+                <img src="galerie/ami.png" alt="" class="accord-thumb">
+                <span class="badge badge-cyan" style="position:relative;z-index:1;">3 espaces</span>
+                <div class="accord-chevron"><i class="fas fa-chevron-down"></i></div>
+            </div>
+            <div class="accord-body">
+                <div class="accord-inner">
+
+                    <div class="activ-card">
+                        <img src="galerie/barriere.png" alt="Espace chiots" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Chiots / Jeunes chiens</span>
+                            <h4 class="activ-card__title">Espace Séparé</h4>
+                            <p class="activ-card__desc">Un espace dédié, séparé par un simple grillage — contact visuel avec les grands, cadre maîtrisé. Socialisation progressive, fondamentaux (calme, focus, rappel) dans une ambiance ludique et sécurisée.</p>
+                            <ul class="activ-card__features">
+                                <li>Jeux &amp; jouets adaptés</li>
+                                <li>Espace sécurisé</li>
+                                <li>Conseils pratiques</li>
+                                <li>Environnement adapté</li>
+                            </ul>
+                        </div>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">Inclus <span>/ accès</span></span>
+                            <a href="planning-reservation.html" class="btn btn-primary btn-sm">Réserver</a>
+                        </div>
+                    </div>
+
+                    <div class="activ-card">
+                        <img src="galerie/sport.png" alt="Agility" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Coins sport canin</span>
+                            <h4 class="activ-card__title">Parcours Agility</h4>
+                            <p class="activ-card__desc">Un espace de jeux et de sport pensé pour que votre chien se défouler vraiment. Dépense efficace, encadrée : on stimule énergie, coordination — repartez avec un chien "vidé".</p>
+                            <ul class="activ-card__features">
                                 <li>Anneaux</li>
                                 <li>Bascules</li>
                                 <li>Tunnel Géant</li>
                                 <li>Parcours "DogTrack"</li>
                             </ul>
-						<center>
-                      <img src="galerie/sport.png" alt="Image" style="width:200px;height:200px;"> 
-						</center>	
+                        </div>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">Inclus <span>/ accès</span></span>
+                            <a href="planning-reservation.html" class="btn btn-primary btn-sm">Réserver</a>
                         </div>
                     </div>
-                            <!-- Carte 3 -->
-                            <div class="activity-card-container-cyan">
-                                <div class="activity-card-header" data-category="education">
-                                    <span class="badge badge-cyan mb-md">Propriocéption</span>
-                                    <h4>Éveil des sens</h4>
-                                    <p>Ici, la balade devient une vraie exploration : ça sent, ça observe, ça réfléchit. “C’est quoi là ?”, “Qui est passé ici ?”, “Pourquoi ça bouge ?” — autant de petites questions qui déclenchent la curiosité et stimulent naturellement votre chien.
-									Résultat : une sortie plus riche, plus calme et plus satisfaisante… parce qu’il ne dépense pas seulement ses pattes, mais aussi sa tête.</li>
-                                </div>
-                                <div class="activity-card-content">
-                                    <ul class="pricing-features" style="margin: var(--space-md) 0;">
-                                        <li>Animations</li>
-                                        <li>Bac de fouille</li>
-                                        <li>Jeux d'équilibre</li>
-                                        <li>Les odeurs des visiteurs!!</li>
-                                    </ul>
-					<center>
-                      <img src="galerie/proprio.png" alt="Image" style="width:200px;height:200px;">
-                    </center>	
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <!-- Outdoor Fitness -->
-			
-				<div class="container">
-					<div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-			<section class="section section-repliable" id="sport" style="background: var(--bg-secondary); width: 1200px; max-width: 1200px;">
-                <div class="section-toggle" onclick="toggleSection('sport')">
-                    <i class="fas fa-chevron-down"></i>
-                    <div class="card-icon card-icon-green">
-                        <i class="fas fa-running"></i>
-                    </div>
-                    <div>
-                        <h2 class="mb-0" style="padding-top: 10px;">Outdoor <span class="text-green"> Fitness</span></h2>
-                        <p class="text-muted mb-0">Développez la complicité à travers le sport</p>
-                    </div>
-					<center>
-                      <img src="galerie/sport.png" alt="Woof Academy" class="woof-logo__img">  
-                    </center>
-                </div>
-					
-                    <!-- ACTIVITÉS HUMAINS -->
-					
-                    <div class="grid grid-cols-3 md-grid-cols-1">
-                        
-						<!-- Carte 1 -->
-                        <div class="activity-card-container-green">
-                            <div class="activity-card-header" data-category="sport">
-                                <span class="badge badge-green mb-md">Synchro</span>
-                                <h4>Bouger au même rythme</h4>
-                                <p>Faites votre séance en gardant votre chien dans votre champ — et lui vous garde comme repère. Chacun respire et se dépense, ensemble, dans un cadre pensé pour éviter le stress des rencontres imprévues et sécuriser tout le monde.
-								Résultat : votre chien apprend à rester posé en mouvement, et vous, vous travaillez endurance, régularité et surtout une compétence clé : rester connecté pendant l’effort (rythme, attention, calme).
-								C’est du sport, oui — mais surtout un rituel de confiance qui s’installe séance après séance.</p>
-                            </div>
-                            <div class="activity-card-content">
-                                <ul class="pricing-features" style="margin: var(--space-md) 0;">
-                                    <li>Espace dégagé</li>
-                                    <li>Espace sécurisé</li>
-                                    <li>Power walk autour du parc*</li>
-                                    <li>Environnement proche de la nature</li>
-							</ul>
-                                <!-- </ul>s -->
-                                <center>
-                                <img src="galerie/maitrechien.png" alt="Image" style="width:200px;height:200px;">
-                                </center>
-                            </div>
+                    <div class="activ-card">
+                        <img src="galerie/proprio.png" alt="Éveil des sens" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Proprioception</span>
+                            <h4 class="activ-card__title">Éveil des sens</h4>
+                            <p class="activ-card__desc">La balade devient une vraie exploration : ça sent, ça observe, ça réfléchit. Une sortie plus riche, plus calme — votre chien dépense ses pattes ET sa tête.</p>
+                            <ul class="activ-card__features">
+                                <li>Animations</li>
+                                <li>Bac de fouille</li>
+                                <li>Jeux d'équilibre</li>
+                                <li>Piste olfactive</li>
+                            </ul>
                         </div>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">Inclus <span>/ accès</span></span>
+                            <a href="planning-reservation.html" class="btn btn-primary btn-sm">Réserver</a>
+                        </div>
+                    </div>
 
-						<!-- Carte 2 -->
-						<div class="activity-card-container-green">
-							<div class="activity-card-header" data-category="sport">
-								<span class="badge badge-green mb-md">Santé des maîtres</span>
-								<h4>Prenez soin de vous</h4>
-								<p class="text-align: justify;">Renforcement fonctionnel en plein air
-									Nous proposons un renforcement fonctionnel en plein air pour développer un corps solide au quotidien : gainage, mobilité, dos, stabilité. Les exercices s’appuient sur l’environnement (bancs, marches, sol) et restent progressifs, simples et accessibles à tous.
-									Vous bénéficiez aussi du meilleur des équipements de fitness outdoor, pour gagner en contrôle et en confort de mouvement — utile dans la vie de tous les jours, y compris en promenade : tenir la longe, encaisser un à-coup, se baisser facilement, jouer, lancer, repartir.</p>
-							</div>
-                        <div class="activity-card-content">
-                            <ul class="pricing-features">
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             ACCORDÉON 2 — OUTDOOR FITNESS
+        ═══════════════════════════════════════════ -->
+        <div class="accord-item green" id="acc-fit">
+            <div class="accord-head" onclick="toggleAccord('acc-fit')">
+                <div class="accord-icon"><i class="fas fa-running"></i></div>
+                <div class="accord-head-text">
+                    <h2>Outdoor <span>Fitness</span></h2>
+                    <p>Développez la complicité à travers le sport</p>
+                </div>
+                <img src="galerie/fitness.png" alt="" class="accord-thumb">
+                <span class="badge badge-green" style="position:relative;z-index:1;">3 espaces</span>
+                <div class="accord-chevron"><i class="fas fa-chevron-down"></i></div>
+            </div>
+            <div class="accord-body">
+                <div class="accord-inner">
+
+                    <div class="activ-card">
+                        <img src="galerie/maitrechien.png" alt="Synchro" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Synchro</span>
+                            <h4 class="activ-card__title">Bouger au même rythme</h4>
+                            <p class="activ-card__desc">Faites votre séance en gardant votre chien dans votre champ. Endurance, régularité et connexion pendant l'effort. Un rituel de confiance qui s'installe séance après séance.</p>
+                            <ul class="activ-card__features">
+                                <li>Espace dégagé sécurisé</li>
+                                <li>Power walk autour du parc</li>
+                                <li>Environnement proche nature</li>
+                                <li>Gestion calme en mouvement</li>
+                            </ul>
+                        </div>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">Inclus <span>/ accès</span></span>
+                            <a href="planning-reservation.html" class="btn btn-success btn-sm">Réserver</a>
+                        </div>
+                    </div>
+
+                    <div class="activ-card">
+                        <img src="galerie/fitness.png" alt="Fitness" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Santé des maîtres</span>
+                            <h4 class="activ-card__title">Prenez soin de vous</h4>
+                            <p class="activ-card__desc">Renforcement fonctionnel en plein air. Gainage, mobilité, dos, stabilité. Exercices sur l'environnement (bancs, marches, sol), progressifs et accessibles à tous.</p>
+                            <ul class="activ-card__features">
                                 <li>Barres parallèles</li>
                                 <li>Barre de traction</li>
-                                <li>Bancs/Marches/escaliers/plateformes</li>
-                                <li>Poutre basse/modules d’équilibre</li>
+                                <li>Bancs / Plateformes</li>
+                                <li>Modules d'équilibre</li>
                             </ul>
-								<!-- </ul>s -->
-                                <center>
-                                <img src="galerie/fitness.png" alt="Image" style="width:200px;height:200px;">
-                                </center>
+                        </div>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">Inclus <span>/ accès</span></span>
+                            <a href="planning-reservation.html" class="btn btn-success btn-sm">Réserver</a>
                         </div>
                     </div>
 
-						<!-- Carte 3 -->
-						<div class="activity-card-container-green">
-							<div class="activity-card-header" data-category="sport">
-								<span class="badge badge-green mb-md">Environnement 2.0</span>
-								<h4>Technologie et Nature</h4>
-								<p>Un espace outdoor <span class="product-price">2.0</span>, qui réconcilie écologie concrète et usage connecté : une structure sobre et intégrée au parc, des toiles photovoltaïques qui apportent ombre et confort tout en contribuant à l’autonomie énergétique du site et une offre Outdoor Fitness grand public pensée pour lever tous les freins avec des repères clairs, mouvements accessibles, progression rassurants. L’expérience est prolongée par votre smartphone, véritable coach, vous permets de suivre votre activité depuis votre téléphone.</li>
-                        </div>
-                        <div class="activity-card-content">
-                            <ul class="pricing-features">
-                                <li>Solaire utile</li>
-                                <li>Installation Bois</li>
-                                <li>Parcours intéractif</li>
-                                <li>Outdoor fitness connecté</li>
+                    <div class="activ-card">
+                        <img src="galerie/connecte.png" alt="Tech" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Environnement 2.0</span>
+                            <h4 class="activ-card__title">Technologie &amp; Nature</h4>
+                            <p class="activ-card__desc">Toiles photovoltaïques pour l'ombre et l'énergie. Parcours connecté suivi depuis votre smartphone. Outdoor fitness accessible à tous, mouvements progressifs et rassurants.</p>
+                            <ul class="activ-card__features">
+                                <li>Solaire utile (Solar Cloth)</li>
+                                <li>Installation bois</li>
+                                <li>Parcours interactif</li>
+                                <li>Fitness connecté</li>
                             </ul>
-								<!-- </ul>s -->
-                                <center>
-                                <img src="galerie/connecte.png" alt="Image" style="width:200px;height:200px;">
-                                </center>
+                        </div>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">Inclus <span>/ accès</span></span>
+                            <a href="planning-reservation.html" class="btn btn-success btn-sm">Réserver</a>
                         </div>
                     </div>
+
                 </div>
             </div>
-        </section>
+        </div>
 
-            <!-- COMPORTEMENT -->
-			
-        <div class="container">
-<div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-    <section class="section section-repliable" id="comportement" style="background: var(--bg-secondary); width: 1200px; max-width: 1200px;">
-                <div class="section-toggle" onclick="toggleSection('comportement')">
-                    <i class="fas fa-chevron-down"></i>
-                    <div class="card-icon card-icon-magenta">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <div>
-                        <h2 class="mb-0" style="padding-top: 10px;">Santé &<span class="text-magenta"> Bien-être</span></h2>
-                        <p class="text-muted mb-0">Solutions et équipements Chiens / Humains</p>
-                    </div>
-					<div>
-                      <img src="galerie/social.png" alt="Woof Academy" class="woof-logo__img">  
-                    </div>
+        <!-- ═══════════════════════════════════════════
+             ACCORDÉON 3 — SANTÉ & BIEN-ÊTRE
+        ═══════════════════════════════════════════ -->
+        <div class="accord-item mag" id="acc-bien">
+            <div class="accord-head" onclick="toggleAccord('acc-bien')">
+                <div class="accord-icon"><i class="fas fa-heart"></i></div>
+                <div class="accord-head-text">
+                    <h2>Santé &amp; <span>Bien-être</span></h2>
+                    <p>Solutions et équipements Chiens / Humains</p>
                 </div>
-					
-                    <!-- ACTIVITÉS  -->
-					
-        <div class="grid grid-cols-3 md-grid-cols-1">
-		
-                    <!-- Carte 1 -->
-                    <div class="activity-card-container-magenta">
-                        <div class="activity-card-header" data-category="comportement">
-                            <span class="badge badge-magenta mb-md">Sport</span>
-                            <h4>Bouger & se dépenser</h4>
-                            <p>Un espace pensé pour améliorer le confort, la sécurité et la forme de tous, au quotidien.
-							Des équipements simples et efficaces pour accompagner l’activité, la récupération et les bons gestes.
-							Objectif : des sorties plus utiles, plus sereines, et une routine bien-être qui s’installe naturellement.</p>				
-                        </div>
-                        <div class="activity-card-content">
-                            <ul class="pricing-features">
-								<li>Cardio accessible</li>
+                <img src="galerie/social.png" alt="" class="accord-thumb">
+                <span class="badge badge-magenta" style="position:relative;z-index:1;">3 services</span>
+                <div class="accord-chevron"><i class="fas fa-chevron-down"></i></div>
+            </div>
+            <div class="accord-body">
+                <div class="accord-inner">
+
+                    <div class="activ-card">
+                        <img src="galerie/dogwash.png" alt="Sport" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Sport</span>
+                            <h4 class="activ-card__title">Bouger &amp; se dépenser</h4>
+                            <p class="activ-card__desc">Cardio accessible, jeu moteur côté chien, renforcement fonctionnel. Des sorties plus utiles, plus sereines, une routine bien-être qui s'installe naturellement.</p>
+                            <ul class="activ-card__features">
+                                <li>Cardio accessible</li>
                                 <li>Jeu moteur côté chien</li>
-                                <li>Dépense physique “utile”</li>
+                                <li>Dépense physique utile</li>
                                 <li>Renforcement fonctionnel</li>
                             </ul>
-							<center>
-                                <img src="galerie/dogwash.png" alt="Image" style="width:200px;height:200px;">
-                            </center>							   
                         </div>
-						    <div class="flex justify-between items-center">
-                                <span class="product-price">8€ <span>15min</span></span>
-                                <a href="planning-reservation.html" class="btn btn-magenta btn-sm">Réserver</a>
-                            </div>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">8 € <span>/ 15 min</span></span>
+                            <a href="planning-reservation.html" class="btn btn-magenta btn-sm">Réserver</a>
+                        </div>
                     </div>
 
-                    <!-- Carte 2 -->
-                    <div class="activity-card-container-magenta">
-                        <div class="activity-card-header" data-category="comportement">
-                            <span class="badge badge-magenta mb-md">Équipement</span>
-                            <h4>Équilibre & prévention</h4>
-                            <p>On lance une ligne textile Woof Academy pensée pour bouger dehors, humain & chien, avec un style clair et assumé.
-							Des pièces confortables, résistantes et techniques, faites pour suivre l’effort. Une gamme signature: on vous reconnaît tout de suite — terrain, performance, complicité.</p>
-                        </div>
-                        <div class="activity-card-content">
-                            <ul class="pricing-features">
+                    <div class="activ-card">
+                        <img src="galerie/vetements.png" alt="Équipement" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Équipement</span>
+                            <h4 class="activ-card__title">Équilibre &amp; prévention</h4>
+                            <p class="activ-card__desc">Ligne textile Woof Academy — pièces confortables, résistantes et techniques pour bouger dehors, humain &amp; chien. Harnais, vêtements sport, manteaux canins.</p>
+                            <ul class="activ-card__features">
                                 <li>Harnais</li>
-                                <li>Bandeau tête/poignet</li>
-                                <li>Short et Pantalon sport</li>
+                                <li>Bandeau tête / poignet</li>
+                                <li>Short et pantalon sport</li>
                                 <li>Manteau de protection canin</li>
                             </ul>
-							<center>
-                                <img src="galerie/vetements.png" alt="Image" style="width:200px;height:200px;">
-                            </center>	
                         </div>
-						 <div class="flex justify-between items-center">
-                                <span class="product-price">de 8 à 60€ <span>/pièce</span></span>
-                                <a href="planning-reservation.html" class="btn btn-magenta btn-sm">Commander</a>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">dès 8 € <span>/ pièce</span></span>
+                            <a href="shop.html" class="btn btn-magenta btn-sm">Commander</a>
                         </div>
                     </div>
 
-                    <!-- Carte 3 -->
-                    <div class="activity-card-container-magenta">
-                        <div class="activity-card-header" data-category="comportement">
-                            <span class="badge badge-magenta mb-md">Bien-être</span>
-                            <h4>Relaxation/Apprentissage</h4>
-                            <p>Pensé pour aider à redescendre la pression (calme, récupération, sérénité), pour rendre chaque visite plus agréable et plus stable.  Résultat : une sortie qui ne sert pas seulement à “se défouler”, mais à se poser, comprendre et progresser durablement. repartez serein chez vous.</p>
-                        </div>
-                        <div class="activity-card-content">
-                            <ul class="pricing-features">
-                                <li>Lien & routine</li>
+                    <div class="activ-card">
+                        <img src="galerie/zen.png" alt="Relaxation" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Bien-être</span>
+                            <h4 class="activ-card__title">Relaxation / Apprentissage</h4>
+                            <p class="activ-card__desc">Aider à redescendre la pression — calme, récupération, sérénité. Chaque visite plus agréable et plus stable. Repartez serein chez vous.</p>
+                            <ul class="activ-card__features">
+                                <li>Lien &amp; routine</li>
                                 <li>Relaxation guidée</li>
-                                <li>Apprentissage doux </li>
+                                <li>Apprentissage doux</li>
                                 <li>Stimulation mentale</li>
                             </ul>
-							<center>
-                                <img src="galerie/zen.png" alt="Image" style="width:200px;height:200px;">
-                            </center>	
-                        </div>                            
-						<div class="flex justify-between items-center">
-							<span class="product-price">50€ <span>/séance</span></span>
-							<a href="planning-reservation.html" class="btn btn-magenta btn-sm">Réserver</a>
-						</div>
+                        </div>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">50 € <span>/ séance</span></span>
+                            <a href="planning-reservation.html" class="btn btn-magenta btn-sm">Réserver</a>
+                        </div>
                     </div>
+
                 </div>
-			</div>
+            </div>
         </div>
-    </section>
 
-            <!-- STAGES -->
-			
-        <div class="container">
-<div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-    <section class="section section-repliable" id="stage" style="background: var(--bg-secondary); width: 1200px; max-width: 1200px;">
-                <div class="section-toggle" onclick="toggleSection('stage')">
-                    <i class="fas fa-chevron-down"></i>
-                    <div class="card-icon card-icon-orange">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div>
-                        <h2 class="mb-0" style="padding-top: 10px;">Nos<span class="text-orange"> Installations</span></h2>
-                        <p class="text-muted mb-0">Découvrez l'ensemble de nos équipements</p>
-                    </div> 
-					<div>
-                      <img src="galerie/proprio.png" alt="Woof Academy" class="woof-logo__img"</a>  
-                    </div>
+        <!-- ═══════════════════════════════════════════
+             ACCORDÉON 4 — NOS INSTALLATIONS
+        ═══════════════════════════════════════════ -->
+        <div class="accord-item orange" id="acc-instal">
+            <div class="accord-head" onclick="toggleAccord('acc-instal')">
+                <div class="accord-icon"><i class="fas fa-tools"></i></div>
+                <div class="accord-head-text">
+                    <h2>Nos <span>Installations</span></h2>
+                    <p>Découvrez l'ensemble de nos équipements</p>
                 </div>
+                <img src="galerie/parcrea.png" alt="" class="accord-thumb">
+                <span class="badge badge-orange" style="position:relative;z-index:1;">3 espaces</span>
+                <div class="accord-chevron"><i class="fas fa-chevron-down"></i></div>
+            </div>
+            <div class="accord-body">
+                <div class="accord-inner">
 
-				 <!-- STAGES & ACTIVITÉS -->
-				 
-                <div class="grid grid-cols-3 md-grid-cols-1">
-				
-                    <!-- Carte 1 -->
-                    <div class="activity-card-container-orange">
-                        <div class="activity-card-header" data-category="stage">
-                            <span class="badge badge-orange mb-md">Accueil visiteurs</span>
-                            <h4>Stage Intensif Éducation</h4>
-                            <p>2 jours complets pour poser les bases d'une éducation solide. Théorie et pratique en immersion totale.</p>
-                        </div>
-                        <div class="activity-card-content">
-                            <ul class="pricing-features">
-                                <li>12h de formation</li>
-                                <li>Support de cours inclus</li>
-                                <li>Déjeuner offert</li>
-                                <li>Suivi post-stage</li>
-                            </ul>
-                            <div class="flex justify-between items-center">
-                                <span class="product-price">250€ <span>/stage</span></span>
-                                <a href="planning-reservation.html" class="btn btn-primary btn-sm">S'inscrire</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Carte 2 -->
-                    <div class="activity-card-container-orange">
-                        <div class="activity-card-header" data-category="stage">
-                            <span class="badge badge-orange mb-md">Partie Social</span>
-                            <h4>Stage sport Canin</h4>
-                            <p>5 jours pour maîtriser les bases d'un sport canin de votre choix : agility, ring, obé-rythmée, etc.</p>
-                        </div>
-                        <div class="activity-card-content">
-                            <ul class="pricing-features">
+                    <div class="activ-card">
+                        <img src="galerie/Parcrea.png" alt="Accueil" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Accueil visiteurs</span>
+                            <h4 class="activ-card__title">Chalet d'accueil</h4>
+                            <p class="activ-card__desc">Chalet en bois central : accueil, snacks, boutique, WC. Terrasse dog-friendly ouverte à tous, fontaines, coin café. Espace PMR accessible.</p>
+                            <ul class="activ-card__features">
                                 <li>Accès pour tous</li>
                                 <li>Équipements adaptés PMR</li>
-                                <li>Accueil avec partie snack/terrasse</li>
-                                <li>Accès à des groupes de promenades entre adhérents</li>
+                                <li>Snack / terrasse</li>
+                                <li>Groupes de promenades membres</li>
                             </ul>
+                        </div>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">Libre <span>/ accès</span></span>
+                            <a href="concept.html" class="btn btn-primary btn-sm">En savoir plus</a>
                         </div>
                     </div>
 
-                    <!-- Carte 3 -->
-                    <div class="activity-card-container-orange">
-                        <div class="activity-card-header" data-category="stage">
-                            <span class="badge badge-orange mb-md">Énérgie/écologie</span>
-                            <h4>Formation Éducateur Canin</h4>
-                            <p>Formation complète pour devenir éducateur canin professionnel. Théorie, pratique et stage inclus.</p>
+                    <div class="activ-card">
+                        <img src="galerie/groupechien.png" alt="Social" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Partie sociale</span>
+                            <h4 class="activ-card__title">Espace communautaire</h4>
+                            <p class="activ-card__desc">Lieu de rencontre et d'échange entre propriétaires. Groupes de promenades, événements membres, ateliers thématiques. Le chien comme pont entre les générations.</p>
+                            <ul class="activ-card__features">
+                                <li>Événements réguliers</li>
+                                <li>Ateliers thématiques</li>
+                                <li>Groupes seniors / jeunes</li>
+                                <li>Réseau associatif SPA</li>
+                            </ul>
                         </div>
-                        <div class="activity-card-content">
-                            <ul class="pricing-features">
-                                <li>200h de formation</li>
-                                <li>Modules théoriques</li>
-                                <li>Stage pratique inclus</li>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">Inclus <span>/ abonnement</span></span>
+                            <a href="abonnements.html" class="btn btn-primary btn-sm">S'abonner</a>
+                        </div>
+                    </div>
+
+                    <div class="activ-card">
+                        <img src="galerie/connecte.png" alt="Énergie" class="activ-card__img">
+                        <div class="activ-card__body">
+                            <span class="activ-card__badge">Énergie / Écologie</span>
+                            <h4 class="activ-card__title">Solar Cloth &amp; Éco-design</h4>
+                            <p class="activ-card__desc">Ombrages Solar Cloth (Made in France) — voiles photovoltaïques tendues. Ombrage + production d'énergie + signature visuelle. Installation bois intégrée au paysage.</p>
+                            <ul class="activ-card__features">
+                                <li>Cellules CIGS 17%</li>
+                                <li>Autonomie énergétique</li>
+                                <li>Design intégré</li>
                                 <li>Certification reconnue</li>
-                                <li>Accompagnement installation</li>
                             </ul>
-                            <div class="flex justify-between items-center">
-                                <span class="product-price">4500€ <span>/formation</span></span>
-                                <a href="espace-pro.html" class="btn btn-primary btn-sm">En savoir plus</a>
-                            </div>
+                        </div>
+                        <div class="activ-card__footer">
+                            <span class="activ-card__price">Inclus <span>/ site</span></span>
+                            <a href="concept.html" class="btn btn-primary btn-sm">En savoir plus</a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-<!-- CTA -->
-<div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-    <section class="section" id="cta" style="background: var(--bg-secondary); width: 1200px; max-width: 1200px;">
-        <div class="container" style="margin-top: 20px;">
-            <div class="card card-magenta text-center" style="padding: var(--space-3xl);">
-                <h2 class="section-title">Prêt à Vous Lancer ?</h2>
-                <p class="section-subtitle mb-xl">
-                    Consultez notre planning et réservez votre prochaine activité
-                </p>
-                <div class="flex justify-center gap-md flex-wrap">
-                    <a href="planning-reservation.html" class="btn btn-primary btn-lg">
-                        <i class="fas fa-calendar-check"></i> Voir le planning
-                    </a>
-                    <a href="abonnements.html" class="btn btn-secondary btn-lg">
-                        <i class="fas fa-star"></i> Découvrir les abonnements
-                    </a>
                 </div>
             </div>
         </div>
-    </section>
-</div>
-	
-</main>
+
+        <!-- CTA -->
+        <div class="cta-band">
+            <h3>Prêt à vous <span class="text-cyan">lancer</span> ?</h3>
+            <p>Consultez notre planning et réservez votre prochaine activité dès maintenant.</p>
+            <div class="cta-btns">
+                <a href="planning-reservation.html" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Voir le planning</a>
+                <a href="abonnements.html" class="btn btn-secondary"><i class="fas fa-star"></i> Nos abonnements</a>
+            </div>
+        </div>
+
+    </div>
+    </main>
+
     <!-- DISCLAIMER -->
-    <div class="woof-disclaimer"style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-    <section class="section" id="cta" style="background: var(--bg-secondary); width: 1200px; max-width: 1920px;">
-        <strong>Woof Academy</strong> ne prend en charge ni l'éducation canine ni le coaching sportif. 
+    <div class="woof-disclaimer">
+        <strong>Woof Academy</strong> ne prend en charge ni l'éducation canine ni le coaching sportif.
         Le coaching est <strong>sous-traité</strong> à des professionnels indépendants certifiés.
         <a href="cgvWoof.html">En savoir plus</a>
     </div>
@@ -481,7 +692,6 @@
                         <a href="#"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
-                
                 <div>
                     <h4 class="footer-title">Navigation</h4>
                     <ul class="footer-links">
@@ -492,7 +702,6 @@
                         <li><a href="planning-reservation.html">Planning</a></li>
                     </ul>
                 </div>
-                
                 <div>
                     <h4 class="footer-title">Espaces</h4>
                     <ul class="footer-links">
@@ -502,19 +711,16 @@
                         <li><a href="admin-config.html">Administration</a></li>
                     </ul>
                 </div>
-                
                 <div>
                     <h4 class="footer-title">Contact</h4>
                     <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt text-cyan"></i> 123 Rue des Chiens, 75000 Paris</li>
-                        <li><i class="fas fa-phone text-cyan"></i> 01 23 45 67 89</li>
+                        <li><i class="fas fa-map-marker-alt text-cyan"></i> Votre commune, France</li>
                         <li><i class="fas fa-envelope text-cyan"></i> contact@woofacademy.fr</li>
                     </ul>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2024 Woof Academy Network. Tous droits réservés.</p>
+                <p>&copy; 2026 Woof Academy Network. Tous droits réservés.</p>
                 <div class="footer-legal">
                     <a href="cgvWoof.html">CGV</a>
                     <a href="#">Mentions Légales</a>
@@ -523,69 +729,26 @@
             </div>
         </div>
     </footer>
-    <!-- Scripts -->
+
     <script src="js/woof-header.js"></script>
     <script>
-// Fonction pour replier/déplier une section
-function toggleSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        section.classList.toggle('repliée');
+        function toggleAccord(id) {
+            const item = document.getElementById(id);
+            const body = item.querySelector('.accord-body');
+            const isOpen = item.classList.contains('open');
 
-        // Réinitialiser la hauteur maximale pour l'animation
-        const content = section.querySelector('.section-content');
-        if (content) {
-            content.style.maxHeight = section.classList.contains('repliée') ? '0' : '1000px';
-        }
-    } else {
-        console.error(`Section avec l'ID ${sectionId} non trouvée`);
-    }
-}
-
-// Appliquer la classe "repliée" à toutes les sections au chargement de la page
-document.addEventListener('DOMContentLoaded', function() {
-    const sections = document.querySelectorAll('.section-repliable');
-    sections.forEach(section => {
-        section.classList.add('repliée');
-
-        // Initialiser la hauteur maximale pour l'animation
-        const content = section.querySelector('.section-content');
-        if (content) {
-            content.style.maxHeight = '0';
-        }
-    });
-
-    // Filtres d'activités
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const activityCardHeaders = document.querySelectorAll('.activity-card-header');
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Mettre à jour le bouton actif
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const filter = btn.dataset.filter;
-
-            activityCardHeaders.forEach(header => {
-                const card = header.parentElement;
-                if (filter === 'all' || header.dataset.category === filter) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+            // Ferme tous
+            document.querySelectorAll('.accord-item').forEach(el => {
+                el.classList.remove('open');
             });
-        });
-    });
 
-    // Gestion des cartes cliquables
-    activityCardHeaders.forEach(header => {
-        header.addEventListener('click', () => {
-            const card = header.parentElement;
-            card.classList.toggle('active');
-        });
-    });
-});
-
+            // Ouvre si était fermé
+            if (!isOpen) {
+                item.classList.add('open');
+                // Scroll smooth vers l'item
+                setTimeout(() => item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+            }
+        }
     </script>
 </body>
 </html>
