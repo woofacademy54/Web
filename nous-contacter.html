@@ -130,57 +130,76 @@
                     <div class="card card-cyan">
                         <h3><i class="fas fa-paper-plane text-cyan"></i> Envoyez-nous un message</h3>
                         
-                        <form id="contactForm" class="mt-xl">
+                        <!-- Formspree — envoi réel vers woofacademy54@gmail.com -->
+                        <form id="contactForm" class="mt-xl"
+                              action="https://formspree.io/f/woofacademy54"
+                              method="POST">
+
+                            <!-- Champ caché : email destinataire -->
+                            <input type="hidden" name="_replyto" value="woofacademy54@gmail.com">
+                            <input type="hidden" name="_subject" id="hiddenSubject" value="[Woof Academy] Nouveau message">
+
                             <div class="grid grid-cols-2 gap-md">
                                 <div class="form-group">
                                     <label class="form-label">Prénom *</label>
-                                    <input type="text" class="form-input" required placeholder="Jean">
+                                    <input type="text" name="prenom" class="form-input" required placeholder="Jean">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Nom *</label>
-                                    <input type="text" class="form-input" required placeholder="Dupont">
+                                    <input type="text" name="nom" class="form-input" required placeholder="Dupont">
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="form-label">Email *</label>
-                                <input type="email" class="form-input" required placeholder="votre@email.com">
+                                <input type="email" name="email" class="form-input" required placeholder="votre@email.com">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="form-label">Téléphone</label>
-                                <input type="tel" class="form-input" placeholder="06 12 34 56 78">
+                                <input type="tel" name="telephone" class="form-input" placeholder="06 12 34 56 78">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="form-label">Sujet *</label>
-                                <select class="form-select" required id="subjectSelect">
+                                <select name="sujet" class="form-select" required id="subjectSelect">
                                     <option value="">Choisir un sujet</option>
-                                    <option value="info">Demande d'informations</option>
-                                    <option value="reservation">Réservation / Planning</option>
-                                    <option value="abonnement">Abonnements</option>
-                                    <option value="formation">Formations professionnelles</option>
-                                    <option value="partenariat">Partenariat</option>
-                                    <option value="boutique">Boutique / Commande</option>
-                                    <option value="autre">Autre</option>
+                                    <option value="Demande d'informations">Demande d'informations</option>
+                                    <option value="Réservation / Planning">Réservation / Planning</option>
+                                    <option value="Abonnements">Abonnements</option>
+                                    <option value="Formations professionnelles">Formations professionnelles</option>
+                                    <option value="Partenariat">Partenariat</option>
+                                    <option value="Boutique / Commande">Boutique / Commande</option>
+                                    <option value="Autre">Autre</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="form-label">Message *</label>
-                                <textarea class="form-textarea" required placeholder="Décrivez votre demande en détail..."></textarea>
+                                <textarea name="message" class="form-textarea" required placeholder="Décrivez votre demande en détail..." rows="5"></textarea>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="form-checkbox">
                                     <input type="checkbox" required>
-                                    <span>J'accepte la <a href="#" class="text-cyan">politique de confidentialité</a></span>
+                                    <span>J'accepte la <a href="cgvWoof.html" class="text-cyan">politique de confidentialité</a></span>
                                 </label>
                             </div>
-                            
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+
+                            <!-- Anti-spam honeypot -->
+                            <input type="text" name="_gotcha" style="display:none">
+
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" id="submitBtn">
                                 <i class="fas fa-paper-plane"></i> Envoyer le message
                             </button>
+
+                            <!-- Message de confirmation -->
+                            <div id="formSuccess" style="display:none; margin-top:var(--space-md); padding:var(--space-md); background:rgba(34,197,94,.12); border:1px solid var(--neon-green); border-radius:var(--radius-lg); color:var(--neon-green); font-size:0.85rem; text-align:center;">
+                                <i class="fas fa-check-circle"></i> Message envoyé ! Nous vous répondrons sous 24h à <strong>woofacademy54@gmail.com</strong>.
+                            </div>
+                            <div id="formError" style="display:none; margin-top:var(--space-md); padding:var(--space-md); background:rgba(217,70,239,.12); border:1px solid var(--neon-magenta); border-radius:var(--radius-lg); color:var(--neon-magenta); font-size:0.85rem; text-align:center;">
+                                <i class="fas fa-exclamation-circle"></i> Erreur lors de l'envoi. Contactez-nous directement : <a href="mailto:woofacademy54@gmail.com" style="color:var(--neon-cyan);">woofacademy54@gmail.com</a>
+                            </div>
                         </form>
                     </div>
 
@@ -425,12 +444,47 @@
             document.getElementById('subjectSelect').value = subject;
         }
 
-        // Contact Form
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // Mise à jour sujet caché selon select
+        document.getElementById('subjectSelect').addEventListener('change', function() {
+            document.getElementById('hiddenSubject').value =
+                '[Woof Academy] ' + (this.value || 'Nouveau message');
+        });
+
+        // Contact Form — envoi réel via Formspree
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            showToast('Message envoyé avec succès ! Nous vous répondrons sous 24h.', 'success');
-            this.reset();
+
+            const btn = document.getElementById('submitBtn');
+            const successEl = document.getElementById('formSuccess');
+            const errorEl = document.getElementById('formError');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours…';
+            successEl.style.display = 'none';
+            errorEl.style.display = 'none';
+
+            try {
+                const data = new FormData(this);
+                const res = await fetch('https://formspree.io/f/woofacademy54', {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (res.ok) {
+                    successEl.style.display = 'block';
+                    this.reset();
+                    showToast('Message envoyé ! Réponse sous 24h.', 'success');
+                } else {
+                    throw new Error('Erreur serveur');
+                }
+            } catch (err) {
+                errorEl.style.display = 'block';
+                showToast('Erreur envoi — utilisez le lien email direct.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer le message';
+            }
         });
 
         // Toast
