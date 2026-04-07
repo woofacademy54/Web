@@ -1,123 +1,1191 @@
 <!DOCTYPE html>
-<html lang="fr"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Collectivités — Woof Academy</title>
-<link rel="stylesheet" href="Collectivit%C3%A9s%20%E2%80%94%20Woof%20Academy_files/styles.css">
-<link rel="icon" href="Collectivit%C3%A9s%20%E2%80%94%20Woof%20Academy_files/logo.png">
-<style>
-  .coll-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;height:100%;overflow-y:auto;}
-  @media(max-width:900px){.coll-layout{grid-template-columns:1fr;}}
-  .dsp-step{display:flex;gap:0.75rem;margin-bottom:0.75rem;align-items:flex-start;}
-  .dsp-num{background:var(--accent);color:#000;font-weight:900;font-family:'Orbitron',sans-serif;font-size:0.8rem;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .asso-card{display:flex;align-items:center;gap:0.75rem;background:var(--surface);border-radius:10px;padding:0.75rem;border:1px solid rgba(0,229,204,0.15);margin-bottom:0.5rem;transition:all 0.2s;}
-  .asso-card:hover{border-color:var(--accent);background:rgba(0,229,204,0.05);}
-  .download-btn{display:flex;align-items:center;gap:0.6rem;background:var(--surface);border:1px solid rgba(0,229,204,0.25);border-radius:10px;padding:0.75rem 1rem;text-decoration:none;color:var(--text);transition:all 0.2s;font-size:0.85rem;font-weight:600;}
-  .download-btn:hover{border-color:var(--accent);color:var(--accent);}
-</style>
-<style>
-@keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-</style></head>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collectivités & Partenariats — Woof Academy</title>
+    <meta name="description" content="Woof Academy et les collectivités : DSP, impact social, programmes Woof & Partage, Woof & Respect. Un projet ancré dans le territoire de Liverdun.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/woof-header.css">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Rajdhani:wght@700&family=Lexend:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0a0c12;
+            --bg-darker: #070a0f;
+            --bg-card: rgba(17, 24, 39, 0.6);
+            --accent-purple: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-pink: #ec4899;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Lexend', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ===== HERO ===== */
+        .hero-coll {
+            padding: 140px 2rem 80px;
+            background: linear-gradient(135deg, var(--bg-darker) 0%, #0d1117 50%, #0a0c12 100%);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-coll::before {
+            content: '';
+            position: absolute;
+            top: -200px; left: 50%;
+            transform: translateX(-50%);
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-coll::after {
+            content: '';
+            position: absolute;
+            bottom: -100px; right: -100px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(6,182,212,0.1);
+            border: 1px solid rgba(6,182,212,0.25);
+            border-radius: 999px;
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            color: #06b6d4;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-coll h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-coll h1 .gradient-text {
+            background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-coll p.subtitle {
+            font-size: 1.15rem;
+            color: #9ca3af;
+            max-width: 640px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-coll .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section-coll {
+            padding: 5rem 2rem;
+        }
+
+        .section-coll.dark {
+            background: var(--bg-darker);
+        }
+
+        .container-coll {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(6,182,212,0.08);
+            border: 1px solid rgba(6,182,212,0.2);
+            border-radius: 999px;
+            padding: 0.35rem 0.9rem;
+            font-size: 0.78rem;
+            color: #06b6d4;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-label.purple {
+            background: rgba(139,92,246,0.08);
+            border-color: rgba(139,92,246,0.2);
+            color: #a78bfa;
+        }
+
+        .section-label.pink {
+            background: rgba(236,72,153,0.08);
+            border-color: rgba(236,72,153,0.2);
+            color: #f472b6;
+        }
+
+        .section-title-coll {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-sub {
+            color: #9ca3af;
+            font-size: 1rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-bottom: 3rem;
+        }
+
+        /* ===== CARDS ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .cards-grid.cols2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .cards-grid.cols4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (max-width: 900px) {
+            .cards-grid, .cards-grid.cols4 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .cards-grid, .cards-grid.cols2, .cards-grid.cols4 { grid-template-columns: 1fr; }
+        }
+
+        .card-coll {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-coll::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+
+        .card-coll:hover {
+            transform: translateY(-6px);
+            border-color: rgba(6,182,212,0.25);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(6,182,212,0.08);
+        }
+
+        .card-coll:hover::before { opacity: 1; }
+
+        .card-coll.purple:hover {
+            border-color: rgba(139,92,246,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(139,92,246,0.1);
+        }
+
+        .card-coll.purple::before {
+            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+        }
+
+        .card-coll.pink:hover {
+            border-color: rgba(236,72,153,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(236,72,153,0.1);
+        }
+
+        .card-coll.pink::before {
+            background: linear-gradient(90deg, #ec4899, #f59e0b);
+        }
+
+        .card-icon-wrap {
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-icon-wrap.cyan { background: rgba(6,182,212,0.12); color: #06b6d4; }
+        .card-icon-wrap.purple { background: rgba(139,92,246,0.12); color: #a78bfa; }
+        .card-icon-wrap.pink { background: rgba(236,72,153,0.12); color: #f472b6; }
+        .card-icon-wrap.green { background: rgba(16,185,129,0.12); color: #34d399; }
+
+        .card-coll h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: #fff;
+        }
+
+        .card-coll p {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        /* ===== DSP STEPS ===== */
+        .dsp-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .dsp-step {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .dsp-num {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            color: #fff;
+            font-weight: 800;
+            font-size: 1rem;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(6,182,212,0.3);
+        }
+
+        .dsp-step-body strong {
+            display: block;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: #fff;
+        }
+
+        .dsp-step-body p {
+            font-size: 0.88rem;
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        /* ===== AVANTAGES GRID ===== */
+        .avantages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 700px) { .avantages-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .avantage-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(6,182,212,0.06);
+            border: 1px solid rgba(6,182,212,0.15);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            font-size: 0.88rem;
+            color: #e2e8f0;
+            font-weight: 500;
+            transition: all 0.25s;
+        }
+
+        .avantage-item:hover {
+            background: rgba(6,182,212,0.12);
+            border-color: rgba(6,182,212,0.3);
+        }
+
+        .avantage-item i { color: #06b6d4; font-size: 1rem; flex-shrink: 0; }
+
+        /* ===== PARTENAIRES ASSO ===== */
+        .asso-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .asso-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(17,24,39,0.6);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .asso-card:hover {
+            border-color: rgba(6,182,212,0.3);
+            background: rgba(6,182,212,0.05);
+        }
+
+        .asso-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            background: rgba(6,182,212,0.1);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .asso-info strong {
+            display: block;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.2rem;
+        }
+
+        .asso-info span {
+            font-size: 0.78rem;
+            color: #9ca3af;
+        }
+
+        /* ===== TWO COL LAYOUT ===== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+
+        /* ===== FORM ===== */
+        .form-coll {
+            background: rgba(17,24,39,0.7);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 2.5rem;
+        }
+
+        .form-coll h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-coll p.form-sub {
+            font-size: 0.88rem;
+            color: #9ca3af;
+            margin-bottom: 1.75rem;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all 0.25s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: rgba(6,182,212,0.5);
+            background: rgba(6,182,212,0.05);
+            box-shadow: 0 0 0 3px rgba(6,182,212,0.1);
+        }
+
+        .form-group select option { background: #111827; }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+
+        /* ===== DOCS ===== */
+        .docs-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .doc-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(17,24,39,0.6);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .doc-btn:hover {
+            border-color: rgba(139,92,246,0.35);
+            background: rgba(139,92,246,0.07);
+            transform: translateX(4px);
+        }
+
+        .doc-btn-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: rgba(139,92,246,0.12);
+            color: #a78bfa;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .doc-btn-arrow {
+            margin-left: auto;
+            color: #4b5563;
+            transition: color 0.25s;
+        }
+
+        .doc-btn:hover .doc-btn-arrow { color: #a78bfa; }
+
+        /* ===== STAT BANNER ===== */
+        .stat-banner {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 800px) { .stat-banner { grid-template-columns: repeat(2, 1fr); } }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: rgba(17,24,39,0.6);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+        }
+
+        .stat-item .num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .stat-item .lbl {
+            font-size: 0.82rem;
+            color: #9ca3af;
+            margin-top: 0.4rem;
+            line-height: 1.4;
+        }
+
+        /* ===== CTA BAND ===== */
+        .cta-band {
+            background: linear-gradient(135deg, rgba(6,182,212,0.08) 0%, rgba(139,92,246,0.08) 100%);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 24px;
+            padding: 3.5rem;
+            text-align: center;
+        }
+
+        .cta-band h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-band p {
+            color: #9ca3af;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .cta-band .btns {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-coll-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.75rem;
+            background: linear-gradient(135deg, #06b6d4, #0284c7);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .btn-coll-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(6,182,212,0.4);
+        }
+
+        .btn-coll-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.75rem;
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .btn-coll-secondary:hover {
+            border-color: rgba(139,92,246,0.5);
+            background: rgba(139,92,246,0.08);
+            transform: translateY(-2px);
+        }
+
+        /* ===== DIVIDER ===== */
+        .divider-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            margin: 0;
+        }
+
+        /* ===== MOBILE HERO ===== */
+        @media (max-width: 768px) {
+            .hero-coll { padding: 120px 1.5rem 60px; }
+            .section-coll { padding: 3.5rem 1.5rem; }
+            .cta-band { padding: 2rem; }
+            .form-coll { padding: 1.75rem; }
+        }
+
+        /* ===== NOTIFICATION ===== */
+        .notif {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(6,182,212,0.15);
+            border: 1px solid rgba(6,182,212,0.35);
+            border-radius: 14px;
+            padding: 1rem 1.5rem;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .notif.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
 <body>
-<canvas id="paws-canvas" width="1728" height="811"></canvas>
-<header>
-  <a class="header-logo" href="https://woofacademy54.github.io/Web/index.html"><img src="Collectivit%C3%A9s%20%E2%80%94%20Woof%20Academy_files/logo.png" alt="Woof Academy"><span>WOOF ACADEMY</span></a>
-  <nav id="main-nav">
-    <a href="https://woofacademy54.github.io/Web/index.html">Accueil</a><a href="https://woofacademy54.github.io/Web/concept.html">Concept</a><a href="https://woofacademy54.github.io/Web/activites.html">Activités</a>
-    <a href="https://woofacademy54.github.io/Web/abonnements.html">Abonnements</a><a href="https://woofacademy54.github.io/Web/planning.html">Planning</a>
-    <a href="https://woofacademy54.github.io/Web/jeux-sante.html">Jeux &amp; Santé</a><a href="https://woofacademy54.github.io/Web/boutique.html">Boutique</a>
-    <a href="https://woofacademy54.github.io/Web/espace-collectivites.html" class="active">Collectivités</a>
-  </nav>
-  <div class="header-actions">
-    <a class="cart-icon" href="https://woofacademy54.github.io/Web/panier.html">🛒<span class="cart-badge" style="display:none">0</span></a>
-    <div class="dropdown"><button class="dropdown-btn">Connexion ▾</button>
-      <div class="dropdown-menu"><a href="https://woofacademy54.github.io/Web/login.html?type=member">👤 Espace Membre</a><a href="https://woofacademy54.github.io/Web/login.html?type=pro">🏆 Espace Pro</a></div>
-    </div>
-    <div class="hamburger"><span></span><span></span><span></span></div>
-  </div>
-</header>
 
-<main>
-  <div class="coll-layout">
-    <!-- DSP -->
-    <div>
-      <h2 class="section-title gradient-text">Collectivités &amp; DSP</h2>
-      <p style="color:var(--muted);line-height:1.7;margin-bottom:1.25rem;font-size:0.88rem">
-        Woof Academy fonctionne dans le cadre d'une <strong style="color:var(--text)">Délégation de Service Public (DSP)</strong>
- avec la commune. Ce modèle permet à la collectivité de bénéficier d'un 
-service de qualité sans investissement propre, tout en répondant aux 
-besoins des habitants.
-      </p>
-
-      <h3 style="font-size:0.9rem;margin-bottom:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Comment ça fonctionne</h3>
-      <div class="dsp-step"><div class="dsp-num">1</div><div><strong>La commune met le terrain à disposition</strong><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">Convention de mise à disposition longue durée (7–10 ans). Loyer = 0 €.</p></div></div>
-      <div class="dsp-step"><div class="dsp-num">2</div><div><strong>Woof Academy installe et gère le parcours de santé</strong><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">Accès gratuit pour tous les habitants. Entretien complet à la charge de Woof Academy.</p></div></div>
-      <div class="dsp-step"><div class="dsp-num">3</div><div><strong>Woof Academy exploite le tiers-lieu</strong><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">Activités payantes, abonnements, événements — sur la zone privative uniquement.</p></div></div>
-      <div class="dsp-step"><div class="dsp-num">4</div><div><strong>Impact social documenté et partagé</strong><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">Bilans annuels transmis à la commune : nombre d'usagers, événements, partenariats.</p></div></div>
-
-      <div style="margin-top:1.25rem">
-        <h3 style="font-size:0.9rem;margin-bottom:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Ce que la commune y gagne</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
-          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> Service public gratuit (parcours santé)</div>
-          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> 0 € d'investissement initial</div>
-          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> Valorisation du terrain</div>
-          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> Rayonnement territorial</div>
-          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> Lien social intergénérationnel</div>
-          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> Innovation écologique (Solar Cloth)</div>
+    <!-- HEADER UNIFIÉ -->
+    <header class="woof-header">
+        <div class="woof-header__content">
+            <a href="index.html" class="woof-logo">
+                <img src="galerie/logohq.png" alt="Woof Academy" class="woof-logo__img">
+            </a>
+            <nav class="woof-nav" id="woofNav">
+                <a href="index.html" class="woof-nav__item">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Accueil</span>
+                </a>
+                <a href="concept.html" class="woof-nav__item">
+                    <i class="fas fa-lightbulb"></i>
+                    <span class="nav-text">Concept</span>
+                </a>
+                <a href="activites.html" class="woof-nav__item">
+                    <i class="fas fa-running"></i>
+                    <span class="nav-text">Activités</span>
+                </a>
+                <a href="abonnements.html" class="woof-nav__item">
+                    <i class="fas fa-tags"></i>
+                    <span class="nav-text">Abonnements</span>
+                </a>
+                <a href="planning-reservation.html" class="woof-nav__item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Planning</span>
+                </a>
+                <div class="woof-nav__dropdown">
+                    <button class="woof-nav__item">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="nav-text">Espace</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.6rem; margin-left: 4px;"></i>
+                    </button>
+                    <div class="woof-nav__dropdown-menu">
+                        <a href="espace-membre.html" class="woof-nav__dropdown-item">
+                            <i class="fas fa-user"></i> Mon Espace
+                        </a>
+                        <a href="espace-pro.html" class="woof-nav__dropdown-item">
+                            <i class="fas fa-briefcase"></i> Espace Pro
+                        </a>
+                    </div>
+                </div>
+                <a href="shop.html" class="woof-nav__item">
+                    <i class="fas fa-store"></i>
+                    <span class="nav-text">Boutique</span>
+                </a>
+                <a href="collectivites.html" class="woof-nav__item active">
+                    <i class="fas fa-city"></i>
+                    <span class="nav-text">Collectivités</span>
+                </a>
+                <a href="nous-contacter.html" class="woof-nav__item">
+                    <i class="fas fa-envelope"></i>
+                    <span class="nav-text">Contact</span>
+                </a>
+            </nav>
+            <div class="woof-actions">
+                <div class="woof-cart-dog" id="woofCartDog">
+                    <a href="panier.html" class="woof-cart-dog__link" title="Mon Panier">
+                        <svg class="woof-dog" viewBox="0 0 48 48" fill="none">
+                            <ellipse cx="24" cy="28" rx="14" ry="10" fill="currentColor" opacity="0.9"/>
+                            <circle cx="24" cy="16" r="10" fill="currentColor"/>
+                            <ellipse cx="16" cy="10" rx="4" ry="6" fill="currentColor" transform="rotate(-20 16 10)"/>
+                            <ellipse cx="32" cy="10" rx="4" ry="6" fill="currentColor" transform="rotate(20 32 10)"/>
+                            <circle cx="20" cy="14" r="2" fill="#070a0f"/>
+                            <circle cx="28" cy="14" r="2" fill="#070a0f"/>
+                            <circle cx="20.5" cy="13.5" r="0.8" fill="#fff"/>
+                            <circle cx="28.5" cy="13.5" r="0.8" fill="#fff"/>
+                            <ellipse cx="24" cy="20" rx="4" ry="3" fill="#1a1a2e"/>
+                            <ellipse cx="24" cy="19" rx="2" ry="1.2" fill="#2d2d44"/>
+                            <ellipse cx="24" cy="18" rx="1.5" ry="1" fill="#333"/>
+                            <ellipse cx="18" cy="36" rx="3" ry="5" fill="currentColor"/>
+                            <ellipse cx="30" cy="36" rx="3" ry="5" fill="currentColor"/>
+                            <path d="M38 26 Q44 20 42 28 Q40 32 38 28" fill="currentColor"/>
+                        </svg>
+                        <svg class="woof-bone" viewBox="0 0 24 12" fill="currentColor">
+                            <path d="M4 6c-1.5 0-2.5-1-2.5-2.5S2.5 1 4 1s2.5 1 2.5 2.5c0 .5-.1 1-.3 1.3h11.6c-.2-.3-.3-.8-.3-1.3C17.5 2 18.5 1 20 1s2.5 1 2.5 2.5S21.5 6 20 6s-2.5 1-2.5 2.5S18.5 11 20 11s2.5-1 2.5-2.5c0-.5-.1-1-.3-1.3H10.6c.2.3.3.8.3 1.3C10.5 10 9.5 11 8 11s-2.5-1-2.5-2.5S6.5 6 8 6c.5 0 1 .1 1.3.3V5.7C9 5.9 8.5 6 8 6H4z"/>
+                        </svg>
+                        <span class="woof-cart-count" id="woofCartCount">0</span>
+                    </a>
+                </div>
+                <div class="woof-ball" id="woofBall"></div>
+                <a href="login.html" class="woof-btn-login">
+                    <i class="fas fa-user"></i>
+                    <span>Connexion</span>
+                </a>
+            </div>
         </div>
-      </div>
-    </div>
+    </header>
 
-    <!-- Partenaires & Contact -->
-    <div>
-      <h3 class="section-title" style="font-size:1rem;margin-bottom:0.75rem">Nos partenaires institutionnels</h3>
-
-      <div class="asso-card"><span style="font-size:1.5rem">🏥</span><div><div style="font-weight:600;font-size:0.88rem">EHPAD &amp; Maisons de retraite</div><div style="color:var(--muted);font-size:0.75rem">Programme Woof &amp; Partage — visites 2×/mois</div></div></div>
-      <div class="asso-card"><span style="font-size:1.5rem">🎓</span><div><div style="font-weight:600;font-size:0.88rem">Collèges &amp; Lycées</div><div style="color:var(--muted);font-size:0.75rem">Ateliers Woof &amp; Respect — sécurité, langage canin</div></div></div>
-      <div class="asso-card"><span style="font-size:1.5rem">🦮</span><div><div style="font-weight:600;font-size:0.88rem">Chiens Guides d'Aveugles (FFAC)</div><div style="color:var(--muted);font-size:0.75rem">Démonstrations, sensibilisation, collectes</div></div></div>
-      <div class="asso-card"><span style="font-size:1.5rem">🐾</span><div><div style="font-weight:600;font-size:0.88rem">SPA &amp; Refuges locaux</div><div style="color:var(--muted);font-size:0.75rem">Journées adoption, mise en visibilité</div></div></div>
-      <div class="asso-card"><span style="font-size:1.5rem">♿</span><div><div style="font-weight:600;font-size:0.88seh">Chiens d'Assistance (ANECAH)</div><div style="color:var(--muted);font-size:0.75rem">Handicap, autisme, épilepsie</div></div></div>
-
-      <div style="margin-top:1.25rem">
-        <h3 style="font-size:0.9rem;margin-bottom:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Documents à télécharger</h3>
-        <div style="display:flex;flex-direction:column;gap:0.5rem">
-          <a href="#" class="download-btn" onclick="downloadDoc('dsp')"><span>📄</span>Dossier de partenariat DSP</a>
-          <a href="#" class="download-btn" onclick="downloadDoc('impact')"><span>📊</span>Rapport d'impact social (modèle)</a>
-          <a href="#" class="download-btn" onclick="downloadDoc('woof-partage')"><span>💛</span>Programme Woof &amp; Partage</a>
-          <a href="#" class="download-btn" onclick="downloadDoc('woof-respect')"><span>🎓</span>Programme Woof &amp; Respect</a>
+    <!-- HERO -->
+    <section class="hero-coll">
+        <div class="container-coll">
+            <div class="hero-badge"><i class="fas fa-city"></i> Partenariats Publics & Institutionnels</div>
+            <h1>Woof Academy &amp; les<br><span class="gradient-text">Collectivités</span></h1>
+            <p class="subtitle">Un tiers-lieu canin ancré dans le territoire de Liverdun — conçu pour créer de la valeur publique, du lien social et de l'innovation durable, sans investissement initial de la collectivité.</p>
+            <div class="hero-btns">
+                <a href="#dsp" class="btn-coll-primary"><i class="fas fa-handshake"></i> Notre modèle DSP</a>
+                <a href="#contact-coll" class="btn-coll-secondary"><i class="fas fa-paper-plane"></i> Demande de partenariat</a>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div style="margin-top:1.25rem">
-        <h3 style="font-size:0.9rem;margin-bottom:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Demande de partenariat</h3>
-        <div class="form-group"><label>Nom de votre structure</label><input type="text" placeholder="Mairie de... / EHPAD..."></div>
-        <div class="form-group"><label>Type de partenariat</label>
-          <select><option selected="selected">Commune / DSP</option><option>EHPAD / Maison de retraite</option><option>Établissement scolaire</option><option>Association</option><option>Autre</option></select>
+    <!-- STATS BAND -->
+    <section class="section-coll dark">
+        <div class="container-coll">
+            <div class="stat-banner">
+                <div class="stat-item">
+                    <span class="num">0 €</span>
+                    <span class="lbl">Investissement initial pour la commune</span>
+                </div>
+                <div class="stat-item">
+                    <span class="num">7–10</span>
+                    <span class="lbl">Années de convention de mise à disposition</span>
+                </div>
+                <div class="stat-item">
+                    <span class="num">3</span>
+                    <span class="lbl">Programmes d'impact social actifs</span>
+                </div>
+                <div class="stat-item">
+                    <span class="num">100%</span>
+                    <span class="lbl">Parcours de santé gratuit pour les habitants</span>
+                </div>
+            </div>
         </div>
-        <div class="form-group"><label>Email contact</label><input type="email" placeholder="contact@commune.fr"></div>
-        <button class="btn-primary" onclick="alert('✓ Demande envoyée ! Nous vous répondons sous 48h.')">Envoyer la demande</button>
-      </div>
-    </div>
-  </div>
-</main>
+    </section>
 
-<footer>
-  <span>© 2026 Woof Academy</span>
-  <span><a href="mailto:woofacademy54@gmail.com">woofacademy54@gmail.com</a></span>
-</footer>
-<script src="Collectivit%C3%A9s%20%E2%80%94%20Woof%20Academy_files/animations.js"></script><script src="Collectivit%C3%A9s%20%E2%80%94%20Woof%20Academy_files/main.js"></script>
-<script>
-function downloadDoc(type){
-  const titles={'dsp':'Dossier de Partenariat DSP','impact':'Rapport d\'Impact Social','woof-partage':'Programme Woof & Partage','woof-respect':'Programme Woof & Respect'};
-  const w=window.open('','_blank');
-  w.document.write(`<html><body style="font-family:sans-serif;padding:2rem;background:#0d0d0d;color:#f0f0f0">
-    <h1 style="color:#00e5cc">🐾 ${titles[type]}</h1>
-    <h2>Woof Academy — Tiers-lieu canin à vocation sociale</h2>
-    <p style="color:#aaa;line-height:1.7">Ce document présente le cadre de partenariat Woof Academy pour les collectivités, établissements médico-sociaux et scolaires.</p>
-    <p style="color:#aaa">Pour toute information : <strong style="color:#00e5cc">woofacademy54@gmail.com</strong></p>
-    <p style="margin-top:2rem;color:#555">© 2026 Woof Academy · Document confidentiel</p>
-  </body></html>`);
-}
-</script>
+    <div class="divider-line"></div>
 
-</body></html>
+    <!-- DSP MODEL -->
+    <section class="section-coll" id="dsp">
+        <div class="container-coll">
+            <div class="two-col">
+                <div>
+                    <span class="section-label"><i class="fas fa-file-contract"></i> Modèle de gouvernance</span>
+                    <h2 class="section-title-coll">La Délégation de<br>Service Public</h2>
+                    <p class="section-sub">Woof Academy s'inscrit dans le cadre d'une DSP avec la commune de Liverdun. Ce modèle permet à la collectivité de bénéficier d'un service de qualité sans aucun investissement propre.</p>
+
+                    <div class="dsp-steps">
+                        <div class="dsp-step">
+                            <div class="dsp-num">1</div>
+                            <div class="dsp-step-body">
+                                <strong>La commune met le terrain à disposition</strong>
+                                <p>Convention longue durée (7–10 ans). Loyer = 0 €. Cadre exceptionnel au bord de la Moselle, Liverdun 54460.</p>
+                            </div>
+                        </div>
+                        <div class="dsp-step">
+                            <div class="dsp-num">2</div>
+                            <div class="dsp-step-body">
+                                <strong>Woof Academy installe et gère le parcours de santé</strong>
+                                <p>Accès entièrement gratuit pour tous les habitants. Entretien, assurance et gestion intégralement à la charge de Woof Academy.</p>
+                            </div>
+                        </div>
+                        <div class="dsp-step">
+                            <div class="dsp-num">3</div>
+                            <div class="dsp-step-body">
+                                <strong>Woof Academy exploite le tiers-lieu</strong>
+                                <p>Activités payantes, abonnements, événements — uniquement sur la zone privative dédiée.</p>
+                            </div>
+                        </div>
+                        <div class="dsp-step">
+                            <div class="dsp-num">4</div>
+                            <div class="dsp-step-body">
+                                <strong>Impact social documenté et partagé</strong>
+                                <p>Bilans annuels transmis à la commune : usagers, événements, partenariats actifs, indicateurs sociaux.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="section-label purple"><i class="fas fa-trophy"></i> Ce que la commune y gagne</span>
+                    <h2 class="section-title-coll" style="margin-bottom:1.5rem;">Valeur publique<br><span style="background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">créée pour tous</span></h2>
+
+                    <div class="avantages-grid">
+                        <div class="avantage-item"><i class="fas fa-check-circle"></i> Service public gratuit (parcours santé)</div>
+                        <div class="avantage-item"><i class="fas fa-check-circle"></i> 0 € d'investissement initial</div>
+                        <div class="avantage-item"><i class="fas fa-check-circle"></i> Valorisation du patrimoine foncier</div>
+                        <div class="avantage-item"><i class="fas fa-check-circle"></i> Rayonnement territorial</div>
+                        <div class="avantage-item"><i class="fas fa-check-circle"></i> Lien social intergénérationnel</div>
+                        <div class="avantage-item"><i class="fas fa-check-circle"></i> Innovation écologique (Solar Cloth)</div>
+                        <div class="avantage-item"><i class="fas fa-check-circle"></i> Attractivité de la commune</div>
+                        <div class="avantage-item"><i class="fas fa-check-circle"></i> Zéro contrainte de gestion</div>
+                        <div class="avantage-item"><i class="fas fa-check-circle"></i> Rapport annuel d'impact transmis</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- IMPACT SOCIAL -->
+    <section class="section-coll dark">
+        <div class="container-coll">
+            <div style="text-align:center; margin-bottom:3rem;">
+                <span class="section-label pink"><i class="fas fa-heart"></i> Impact social</span>
+                <h2 class="section-title-coll">Trois piliers pour le territoire</h2>
+                <p class="section-sub" style="margin:0 auto;">Des programmes concrets, pensés avec les acteurs locaux, pour créer du lien là où il manque.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card-coll">
+                    <div class="card-icon-wrap cyan"><i class="fas fa-user-friends"></i></div>
+                    <h4>Woof &amp; Partage</h4>
+                    <p>Visites bi-mensuelles en EHPAD, maisons de retraite et résidences seniors. Le chien comme médiateur pour briser l'isolement et recréer du lien intergénérationnel.</p>
+                    <div style="margin-top:1rem; font-size:0.78rem; color:#06b6d4; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Seniors · EHPAD · Médiation animale</div>
+                </div>
+                <div class="card-coll purple">
+                    <div class="card-icon-wrap purple"><i class="fas fa-graduation-cap"></i></div>
+                    <h4>Woof &amp; Respect</h4>
+                    <p>Ateliers de sensibilisation dans les collèges et lycées : sécurité canine, langage du chien, chiens guides, prévention des accidents par morsure (PECCRAM).</p>
+                    <div style="margin-top:1rem; font-size:0.78rem; color:#a78bfa; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Collèges · Lycées · Éducation citoyenne</div>
+                </div>
+                <div class="card-coll pink">
+                    <div class="card-icon-wrap pink"><i class="fas fa-network-wired"></i></div>
+                    <h4>Réseau Associatif</h4>
+                    <p>Partenariats actifs avec les chiens guides (FFAC/UNADEV), SPA et refuges locaux, chiens d'assistance (ANECAH). Journées adoption, collectes, démonstrations.</p>
+                    <div style="margin-top:1rem; font-size:0.78rem; color:#f472b6; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Associations · Refuges · Chiens guides</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- PARTENAIRES INSTITUTIONNELS -->
+    <section class="section-coll">
+        <div class="container-coll">
+            <div class="two-col">
+                <div>
+                    <span class="section-label"><i class="fas fa-building"></i> Partenaires institutionnels</span>
+                    <h2 class="section-title-coll" style="margin-bottom:1.5rem;">Les acteurs avec<br>lesquels nous travaillons</h2>
+                    <div class="asso-list">
+                        <div class="asso-card">
+                            <div class="asso-icon">🏥</div>
+                            <div class="asso-info">
+                                <strong>EHPAD &amp; Maisons de retraite</strong>
+                                <span>Programme Woof &amp; Partage — visites 2×/mois</span>
+                            </div>
+                        </div>
+                        <div class="asso-card">
+                            <div class="asso-icon">🎓</div>
+                            <div class="asso-info">
+                                <strong>Collèges &amp; Lycées</strong>
+                                <span>Ateliers Woof &amp; Respect — sécurité, langage canin</span>
+                            </div>
+                        </div>
+                        <div class="asso-card">
+                            <div class="asso-icon">🦮</div>
+                            <div class="asso-info">
+                                <strong>Chiens Guides d'Aveugles (FFAC/UNADEV)</strong>
+                                <span>Démonstrations publiques, sensibilisation, collectes</span>
+                            </div>
+                        </div>
+                        <div class="asso-card">
+                            <div class="asso-icon">🐾</div>
+                            <div class="asso-info">
+                                <strong>SPA &amp; Refuges locaux</strong>
+                                <span>Journées adoption, mise en visibilité des animaux</span>
+                            </div>
+                        </div>
+                        <div class="asso-card">
+                            <div class="asso-icon">♿</div>
+                            <div class="asso-info">
+                                <strong>Chiens d'Assistance (ANECAH)</strong>
+                                <span>Handicap moteur, autisme, épilepsie</span>
+                            </div>
+                        </div>
+                        <div class="asso-card">
+                            <div class="asso-icon">🌿</div>
+                            <div class="asso-info">
+                                <strong>Solar Cloth — Énergie solaire Made in France</strong>
+                                <span>Voiles photovoltaïques souples (cellules CIGS, 340 W/kg)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="section-label purple"><i class="fas fa-file-download"></i> Documents</span>
+                    <h2 class="section-title-coll" style="margin-bottom:0.75rem;">Ressources<br>à télécharger</h2>
+                    <p style="color:#9ca3af; font-size:0.88rem; line-height:1.6; margin-bottom:1.5rem;">Tous les documents de présentation du projet pour vos échanges avec les services de votre collectivité.</p>
+                    <div class="docs-list">
+                        <a href="#" class="doc-btn" onclick="showDoc('dsp'); return false;">
+                            <div class="doc-btn-icon"><i class="fas fa-file-contract"></i></div>
+                            <div>
+                                <div>Dossier de partenariat DSP</div>
+                                <div style="font-size:0.75rem;color:#9ca3af;font-weight:400;margin-top:0.15rem;">Convention, cadre juridique, obligations</div>
+                            </div>
+                            <i class="fas fa-arrow-right doc-btn-arrow"></i>
+                        </a>
+                        <a href="#" class="doc-btn" onclick="showDoc('impact'); return false;">
+                            <div class="doc-btn-icon"><i class="fas fa-chart-bar"></i></div>
+                            <div>
+                                <div>Rapport d'impact social (modèle)</div>
+                                <div style="font-size:0.75rem;color:#9ca3af;font-weight:400;margin-top:0.15rem;">KPIs sociaux, indicateurs annuels</div>
+                            </div>
+                            <i class="fas fa-arrow-right doc-btn-arrow"></i>
+                        </a>
+                        <a href="#" class="doc-btn" onclick="showDoc('partage'); return false;">
+                            <div class="doc-btn-icon"><i class="fas fa-heart"></i></div>
+                            <div>
+                                <div>Programme Woof &amp; Partage</div>
+                                <div style="font-size:0.75rem;color:#9ca3af;font-weight:400;margin-top:0.15rem;">Modalités, calendrier, EHPAD</div>
+                            </div>
+                            <i class="fas fa-arrow-right doc-btn-arrow"></i>
+                        </a>
+                        <a href="#" class="doc-btn" onclick="showDoc('respect'); return false;">
+                            <div class="doc-btn-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div>
+                                <div>Programme Woof &amp; Respect</div>
+                                <div style="font-size:0.75rem;color:#9ca3af;font-weight:400;margin-top:0.15rem;">Contenu pédagogique, niveaux, durée</div>
+                            </div>
+                            <i class="fas fa-arrow-right doc-btn-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- FORMULAIRE CONTACT -->
+    <section class="section-coll dark" id="contact-coll">
+        <div class="container-coll">
+            <div style="text-align:center; margin-bottom:3rem;">
+                <span class="section-label"><i class="fas fa-paper-plane"></i> Prise de contact</span>
+                <h2 class="section-title-coll">Démarrer un partenariat</h2>
+                <p class="section-sub" style="margin:0 auto;">Collectivité, établissement médico-social, école ou association — remplissez ce formulaire et nous vous répondons sous 48h.</p>
+            </div>
+            <div style="max-width:680px; margin:0 auto;">
+                <div class="form-coll">
+                    <h3>Demande de partenariat</h3>
+                    <p class="form-sub">Décrivez votre structure et vos attentes. Nous construisons chaque partenariat sur-mesure.</p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                        <div class="form-group">
+                            <label>Nom de la structure</label>
+                            <input type="text" placeholder="Mairie de… / EHPAD…" id="f-structure">
+                        </div>
+                        <div class="form-group">
+                            <label>Type de partenariat</label>
+                            <select id="f-type">
+                                <option>Commune / DSP</option>
+                                <option>EHPAD / Maison de retraite</option>
+                                <option>Établissement scolaire</option>
+                                <option>Association</option>
+                                <option>Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                        <div class="form-group">
+                            <label>Nom du contact</label>
+                            <input type="text" placeholder="Prénom Nom" id="f-nom">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="contact@commune.fr" id="f-email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Message (optionnel)</label>
+                        <textarea placeholder="Décrivez votre projet ou vos questions…" id="f-message"></textarea>
+                    </div>
+                    <button class="btn-coll-primary" style="width:100%; justify-content:center;" onclick="sendForm()">
+                        <i class="fas fa-paper-plane"></i> Envoyer la demande
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- CTA FINAL -->
+    <section class="section-coll">
+        <div class="container-coll">
+            <div class="cta-band">
+                <h2>Un projet, un territoire,<br><span style="background:linear-gradient(135deg,#06b6d4,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">une vision commune</span></h2>
+                <p>Woof Academy n'est pas qu'un espace de loisirs. C'est un équipement de territoire — conçu pour durer, réplicable et ancré dans les valeurs du service public.</p>
+                <div class="btns">
+                    <a href="concept.html" class="btn-coll-primary"><i class="fas fa-lightbulb"></i> Découvrir le concept</a>
+                    <a href="nous-contacter.html" class="btn-coll-secondary"><i class="fas fa-envelope"></i> Nous contacter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <img src="galerie/logohq_1.png" alt="Woof Academy" style="width:40px;height:40px;object-fit:contain;vertical-align:middle;margin-right:8px;"><span>Woof Academy</span>
+                    </a>
+                    <p>Le réseau d'excellence pour l'éducation canine. Rejoignez notre communauté de passionnés.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="concept.html">Le Concept</a></li>
+                        <li><a href="activites.html">Activités</a></li>
+                        <li><a href="abonnements.html">Abonnements</a></li>
+                        <li><a href="planning-reservation.html">Planning</a></li>
+                        <li><a href="collectivites.html">Collectivités</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Espaces</h4>
+                    <ul class="footer-links">
+                        <li><a href="espace-membre.html">Espace Membre</a></li>
+                        <li><a href="espace-pro.html">Espace Pro</a></li>
+                        <li><a href="shop.html">Boutique</a></li>
+                        <li><a href="admin-config.html">Administration</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Contact</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt text-cyan"></i> Avenue Lerebourg, 54460 Liverdun</li>
+                        <li><i class="fas fa-phone text-cyan"></i> 07 68 49 09 35</li>
+                        <li><i class="fas fa-envelope text-cyan"></i> woofacademy54@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Woof Academy Network. Tous droits réservés.</p>
+                <div class="footer-legal">
+                    <a href="cgvWoof.html">CGV</a>
+                    <a href="#">Mentions Légales</a>
+                    <a href="#">Politique de Confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- NOTIFICATION -->
+    <div class="notif" id="notif"><i class="fas fa-check-circle" style="color:#06b6d4"></i> <span id="notif-text"></span></div>
+
+    <!-- JS -->
+    <script src="js/woof-header.js"></script>
+    <script>
+        // Scroll header effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.woof-header');
+            if (!header) return;
+            if (window.pageYOffset > 100) {
+                header.classList.add('scrolled');
+                header.style.background = 'rgba(7,10,15,0.98)';
+                header.style.boxShadow = '0 8px 32px rgba(0,0,0,0.4)';
+            } else {
+                header.classList.remove('scrolled');
+                header.style.background = 'rgba(7,10,15,0.85)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            });
+        });
+
+        // Notification helper
+        function showNotif(msg) {
+            const n = document.getElementById('notif');
+            document.getElementById('notif-text').textContent = msg;
+            n.classList.add('show');
+            setTimeout(() => n.classList.remove('show'), 3500);
+        }
+
+        // Formulaire
+        function sendForm() {
+            const structure = document.getElementById('f-structure').value.trim();
+            const email = document.getElementById('f-email').value.trim();
+            if (!structure || !email) {
+                showNotif('Merci de renseigner au moins la structure et l\'email.');
+                return;
+            }
+            showNotif('✓ Demande envoyée ! Nous vous répondons sous 48h.');
+            document.getElementById('f-structure').value = '';
+            document.getElementById('f-nom').value = '';
+            document.getElementById('f-email').value = '';
+            document.getElementById('f-message').value = '';
+        }
+
+        // Docs
+        function showDoc(type) {
+            const titles = {
+                'dsp': 'Dossier de Partenariat DSP',
+                'impact': 'Rapport d\'Impact Social',
+                'partage': 'Programme Woof & Partage',
+                'respect': 'Programme Woof & Respect'
+            };
+            const w = window.open('', '_blank');
+            w.document.write(`<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>${titles[type]} — Woof Academy</title>
+            <style>
+                body{font-family:'Segoe UI',sans-serif;background:#0a0c12;color:#f0f0f0;padding:3rem;max-width:800px;margin:0 auto;}
+                h1{background:linear-gradient(135deg,#06b6d4,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:2rem;margin-bottom:0.5rem;}
+                h2{color:#fff;font-size:1.2rem;margin-bottom:1rem;}
+                p{color:#9ca3af;line-height:1.8;margin-bottom:1rem;}
+                .tag{display:inline-block;background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.25);border-radius:999px;padding:0.25rem 0.75rem;font-size:0.78rem;color:#06b6d4;margin-bottom:1.5rem;}
+                strong{color:#e2e8f0;}
+                footer{margin-top:3rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.08);color:#4b5563;font-size:0.8rem;}
+            </style></head>
+            <body>
+                <div class="tag">🐾 Woof Academy — Document Officiel</div>
+                <h1>${titles[type]}</h1>
+                <h2>Woof Academy — Tiers-lieu canin à vocation sociale · Liverdun (54460)</h2>
+                <p>Ce document présente le cadre de partenariat Woof Academy pour les collectivités, établissements médico-sociaux et scolaires de Meurthe-et-Moselle.</p>
+                <p>Pour toute information complémentaire : <strong>woofacademy54@gmail.com</strong></p>
+                <p>Site web : <strong>https://woofacademy54.github.io</strong></p>
+                <footer>© 2026 Woof Academy · Document de présentation · Confidentiel</footer>
+            </body></html>`);
+        }
+
+        // Animation entrée sections
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.opacity = '1';
+                    e.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.card-coll, .dsp-step, .asso-card, .stat-item, .avantage-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            obs.observe(el);
+        });
+    </script>
+</body>
+</html>
