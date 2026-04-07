@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collectivités — Woof Academy</title>
+<link rel="stylesheet" href="Collectivit%C3%A9s%20%E2%80%94%20Woof%20Academy_files/styles.css">
+<link rel="icon" href="Collectivit%C3%A9s%20%E2%80%94%20Woof%20Academy_files/logo.png">
+<style>
+  .coll-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;height:100%;overflow-y:auto;}
+  @media(max-width:900px){.coll-layout{grid-template-columns:1fr;}}
+  .dsp-step{display:flex;gap:0.75rem;margin-bottom:0.75rem;align-items:flex-start;}
+  .dsp-num{background:var(--accent);color:#000;font-weight:900;font-family:'Orbitron',sans-serif;font-size:0.8rem;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .asso-card{display:flex;align-items:center;gap:0.75rem;background:var(--surface);border-radius:10px;padding:0.75rem;border:1px solid rgba(0,229,204,0.15);margin-bottom:0.5rem;transition:all 0.2s;}
+  .asso-card:hover{border-color:var(--accent);background:rgba(0,229,204,0.05);}
+  .download-btn{display:flex;align-items:center;gap:0.6rem;background:var(--surface);border:1px solid rgba(0,229,204,0.25);border-radius:10px;padding:0.75rem 1rem;text-decoration:none;color:var(--text);transition:all 0.2s;font-size:0.85rem;font-weight:600;}
+  .download-btn:hover{border-color:var(--accent);color:var(--accent);}
+</style>
+<style>
+@keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+</style></head>
+<body>
+<canvas id="paws-canvas" width="1728" height="811"></canvas>
+<header>
+  <a class="header-logo" href="https://woofacademy54.github.io/Web/index.html"><img src="Collectivit%C3%A9s%20%E2%80%94%20Woof%20Academy_files/logo.png" alt="Woof Academy"><span>WOOF ACADEMY</span></a>
+  <nav id="main-nav">
+    <a href="https://woofacademy54.github.io/Web/index.html">Accueil</a><a href="https://woofacademy54.github.io/Web/concept.html">Concept</a><a href="https://woofacademy54.github.io/Web/activites.html">Activités</a>
+    <a href="https://woofacademy54.github.io/Web/abonnements.html">Abonnements</a><a href="https://woofacademy54.github.io/Web/planning.html">Planning</a>
+    <a href="https://woofacademy54.github.io/Web/jeux-sante.html">Jeux &amp; Santé</a><a href="https://woofacademy54.github.io/Web/boutique.html">Boutique</a>
+    <a href="https://woofacademy54.github.io/Web/espace-collectivites.html" class="active">Collectivités</a>
+  </nav>
+  <div class="header-actions">
+    <a class="cart-icon" href="https://woofacademy54.github.io/Web/panier.html">🛒<span class="cart-badge" style="display:none">0</span></a>
+    <div class="dropdown"><button class="dropdown-btn">Connexion ▾</button>
+      <div class="dropdown-menu"><a href="https://woofacademy54.github.io/Web/login.html?type=member">👤 Espace Membre</a><a href="https://woofacademy54.github.io/Web/login.html?type=pro">🏆 Espace Pro</a></div>
+    </div>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<main>
+  <div class="coll-layout">
+    <!-- DSP -->
+    <div>
+      <h2 class="section-title gradient-text">Collectivités &amp; DSP</h2>
+      <p style="color:var(--muted);line-height:1.7;margin-bottom:1.25rem;font-size:0.88rem">
+        Woof Academy fonctionne dans le cadre d'une <strong style="color:var(--text)">Délégation de Service Public (DSP)</strong>
+ avec la commune. Ce modèle permet à la collectivité de bénéficier d'un 
+service de qualité sans investissement propre, tout en répondant aux 
+besoins des habitants.
+      </p>
+
+      <h3 style="font-size:0.9rem;margin-bottom:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Comment ça fonctionne</h3>
+      <div class="dsp-step"><div class="dsp-num">1</div><div><strong>La commune met le terrain à disposition</strong><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">Convention de mise à disposition longue durée (7–10 ans). Loyer = 0 €.</p></div></div>
+      <div class="dsp-step"><div class="dsp-num">2</div><div><strong>Woof Academy installe et gère le parcours de santé</strong><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">Accès gratuit pour tous les habitants. Entretien complet à la charge de Woof Academy.</p></div></div>
+      <div class="dsp-step"><div class="dsp-num">3</div><div><strong>Woof Academy exploite le tiers-lieu</strong><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">Activités payantes, abonnements, événements — sur la zone privative uniquement.</p></div></div>
+      <div class="dsp-step"><div class="dsp-num">4</div><div><strong>Impact social documenté et partagé</strong><p style="color:var(--muted);font-size:0.82rem;margin-top:0.2rem">Bilans annuels transmis à la commune : nombre d'usagers, événements, partenariats.</p></div></div>
+
+      <div style="margin-top:1.25rem">
+        <h3 style="font-size:0.9rem;margin-bottom:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Ce que la commune y gagne</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">
+          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> Service public gratuit (parcours santé)</div>
+          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> 0 € d'investissement initial</div>
+          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> Valorisation du terrain</div>
+          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> Rayonnement territorial</div>
+          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> Lien social intergénérationnel</div>
+          <div class="card" style="padding:0.75rem;font-size:0.82rem"><span style="color:var(--accent)">✓</span> Innovation écologique (Solar Cloth)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Partenaires & Contact -->
+    <div>
+      <h3 class="section-title" style="font-size:1rem;margin-bottom:0.75rem">Nos partenaires institutionnels</h3>
+
+      <div class="asso-card"><span style="font-size:1.5rem">🏥</span><div><div style="font-weight:600;font-size:0.88rem">EHPAD &amp; Maisons de retraite</div><div style="color:var(--muted);font-size:0.75rem">Programme Woof &amp; Partage — visites 2×/mois</div></div></div>
+      <div class="asso-card"><span style="font-size:1.5rem">🎓</span><div><div style="font-weight:600;font-size:0.88rem">Collèges &amp; Lycées</div><div style="color:var(--muted);font-size:0.75rem">Ateliers Woof &amp; Respect — sécurité, langage canin</div></div></div>
+      <div class="asso-card"><span style="font-size:1.5rem">🦮</span><div><div style="font-weight:600;font-size:0.88rem">Chiens Guides d'Aveugles (FFAC)</div><div style="color:var(--muted);font-size:0.75rem">Démonstrations, sensibilisation, collectes</div></div></div>
+      <div class="asso-card"><span style="font-size:1.5rem">🐾</span><div><div style="font-weight:600;font-size:0.88rem">SPA &amp; Refuges locaux</div><div style="color:var(--muted);font-size:0.75rem">Journées adoption, mise en visibilité</div></div></div>
+      <div class="asso-card"><span style="font-size:1.5rem">♿</span><div><div style="font-weight:600;font-size:0.88seh">Chiens d'Assistance (ANECAH)</div><div style="color:var(--muted);font-size:0.75rem">Handicap, autisme, épilepsie</div></div></div>
+
+      <div style="margin-top:1.25rem">
+        <h3 style="font-size:0.9rem;margin-bottom:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Documents à télécharger</h3>
+        <div style="display:flex;flex-direction:column;gap:0.5rem">
+          <a href="#" class="download-btn" onclick="downloadDoc('dsp')"><span>📄</span>Dossier de partenariat DSP</a>
+          <a href="#" class="download-btn" onclick="downloadDoc('impact')"><span>📊</span>Rapport d'impact social (modèle)</a>
+          <a href="#" class="download-btn" onclick="downloadDoc('woof-partage')"><span>💛</span>Programme Woof &amp; Partage</a>
+          <a href="#" class="download-btn" onclick="downloadDoc('woof-respect')"><span>🎓</span>Programme Woof &amp; Respect</a>
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem">
+        <h3 style="font-size:0.9rem;margin-bottom:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Demande de partenariat</h3>
+        <div class="form-group"><label>Nom de votre structure</label><input type="text" placeholder="Mairie de... / EHPAD..."></div>
+        <div class="form-group"><label>Type de partenariat</label>
+          <select><option selected="selected">Commune / DSP</option><option>EHPAD / Maison de retraite</option><option>Établissement scolaire</option><option>Association</option><option>Autre</option></select>
+        </div>
+        <div class="form-group"><label>Email contact</label><input type="email" placeholder="contact@commune.fr"></div>
+        <button class="btn-primary" onclick="alert('✓ Demande envoyée ! Nous vous répondons sous 48h.')">Envoyer la demande</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span>© 2026 Woof Academy</span>
+  <span><a href="mailto:woofacademy54@gmail.com">woofacademy54@gmail.com</a></span>
+</footer>
+<script src="Collectivit%C3%A9s%20%E2%80%94%20Woof%20Academy_files/animations.js"></script><script src="Collectivit%C3%A9s%20%E2%80%94%20Woof%20Academy_files/main.js"></script>
+<script>
+function downloadDoc(type){
+  const titles={'dsp':'Dossier de Partenariat DSP','impact':'Rapport d\'Impact Social','woof-partage':'Programme Woof & Partage','woof-respect':'Programme Woof & Respect'};
+  const w=window.open('','_blank');
+  w.document.write(`<html><body style="font-family:sans-serif;padding:2rem;background:#0d0d0d;color:#f0f0f0">
+    <h1 style="color:#00e5cc">🐾 ${titles[type]}</h1>
+    <h2>Woof Academy — Tiers-lieu canin à vocation sociale</h2>
+    <p style="color:#aaa;line-height:1.7">Ce document présente le cadre de partenariat Woof Academy pour les collectivités, établissements médico-sociaux et scolaires.</p>
+    <p style="color:#aaa">Pour toute information : <strong style="color:#00e5cc">woofacademy54@gmail.com</strong></p>
+    <p style="margin-top:2rem;color:#555">© 2026 Woof Academy · Document confidentiel</p>
+  </body></html>`);
+}
+</script>
+
+</body></html>
